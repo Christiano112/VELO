@@ -6,6 +6,9 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+const isLoggedIn = false;
+const isCustomer = true;
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -20,8 +23,13 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Protected guard={isLoggedIn}>
+          <Stack.Protected guard={isCustomer}>
+            <Stack.Screen name="private" />
+          </Stack.Protected>
+
+          <Stack.Screen name="about" />
+        </Stack.Protected>
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

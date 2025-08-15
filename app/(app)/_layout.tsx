@@ -1,5 +1,8 @@
 import { Stack } from "expo-router";
 
+
+const isCustomer = true;
+
 const AppLayout = () => {
     return (
         <Stack
@@ -8,10 +11,19 @@ const AppLayout = () => {
             }}
             initialRouteName="index"
         >
-            <Stack.Screen name="index" />
-            <Stack.Screen name="customer" />
-            <Stack.Screen name="driver" />
-            <Stack.Screen name="messaging" />
+            <Stack.Protected guard={true}>
+                <Stack.Screen name="index" />
+
+                <Stack.Protected guard={isCustomer}>
+                    <Stack.Screen name="customer" />
+                </Stack.Protected>
+
+                <Stack.Protected guard={!isCustomer}>
+                    <Stack.Screen name="driver" />
+                </Stack.Protected>
+
+                <Stack.Screen name="messaging" />
+            </Stack.Protected>
         </Stack>
     );
 };

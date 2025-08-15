@@ -1,0 +1,37 @@
+---
+globs: *.ts,*.tsx
+---
+# TypeScript & React Native Style
+
+## Naming
+- Use meaningful names; avoid 1–2 letter variables.
+- Functions are verbs; variables are nouns.
+
+## Components
+- Use `ThemedText`/`ThemedView` for UI text/containers.
+- Reuse `AppInput` and `AppButton` for forms.
+- Keep components small and focused; prefer composition.
+
+## Control Flow
+- Use early returns; avoid deep nesting (>2–3 levels).
+- Handle error/edge cases first; no empty `catch` blocks.
+
+## Formatting
+- Match existing style: semicolons, multi-line for readability, wrap long lines.
+- Do not reformat unrelated code in edits.
+
+## Comments
+- Explain "why", not "how"; avoid trivial comments.
+- No inline narration comments inside code.
+
+## Theming & Tokens
+- Pull colors/spacings/fonts from [constants/Colors.ts](mdc:constants/Colors.ts) and [constants/GlobalStyles.ts](mdc:constants/GlobalStyles.ts).
+- Respect dark/light via `Themed*` components.
+
+## Forms
+- Use `react-hook-form` with `yup` via `yupResolver`.
+- Map errors to `AppInput`'s `errorMessage`.
+
+## Accessibility
+- Touch targets ≥ 44x44.
+- Provide labels for interactive icons.

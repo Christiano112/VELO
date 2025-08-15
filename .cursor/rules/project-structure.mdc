@@ -1,0 +1,28 @@
+---
+alwaysApply: true
+---
+# Project Structure Guide
+
+- Entry: [app/_layout.tsx](mdc:app/_layout.tsx); router root uses Expo Router with segment layouts.
+- App sections:
+  - Main shell: [app/(app)/_layout.tsx](mdc:app/(app)/_layout.tsx)
+  - Customer: [app/(app)/customer/index.tsx](mdc:app/(app)/customer/index.tsx)
+  - Driver: [app/(app)/driver/index.tsx](mdc:app/(app)/driver/index.tsx)
+  - Auth: [app/auth/_layout.tsx](mdc:app/auth/_layout.tsx)
+- Shared UI:
+  - Text/View: [components/ThemedText.tsx](mdc:components/ThemedText.tsx), [components/ThemedView.tsx](mdc:components/ThemedView.tsx)
+  - Forms: [components/form/AppInput.tsx](mdc:components/form/AppInput.tsx), [components/form/AppButton.tsx](mdc:components/form/AppButton.tsx)
+- Design tokens:
+  - Colors: [constants/Colors.ts](mdc:constants/Colors.ts)
+  - Spacing, font sizes: [constants/GlobalStyles.ts](mdc:constants/GlobalStyles.ts)
+- Forms & validation:
+  - Schemas: [utils/schema.ts](mdc:utils/schema.ts)
+  - Types: [types/form.ts](mdc:types/form.ts)
+
+## Conventions
+
+- Screens live under `app/**`; prefer `expo-router` file-based routes.
+- Prefer `ThemedText`/`ThemedView` over raw components for color theming.
+- Use `COLORS`, `SPACING`, `FONT_SIZE` tokens; avoid hardcoding unless Figma specifies values not covered by tokens.
+- For navigation use `expo-router` `useRouter()`.
+- Images live in `assets/images`; import with `require('@/assets/images/...')`.

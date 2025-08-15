@@ -1,0 +1,12 @@
+---
+description: Forms and validation conventions using react-hook-form and yup
+---
+# Forms & Validation
+
+- Prefer `react-hook-form` with `Controller` for field bindings.
+- Use `yup` schemas from [utils/schema.ts](mdc:utils/schema.ts); types from [types/form.ts](mdc:types/form.ts).
+- Resolve with `yupResolver(schema)` from `@hookform/resolvers/yup`.
+- Show field errors under inputs using `ThemedText type="errorMessage"` or `AppInput`'s `errorMessage` prop.
+- Inputs should pass `secureTextEntry` for passwords and provide right-eye icon toggles when specified in Figma.
+- Keep submit buttons disabled during submission; show loading via `AppButton`'s `isLoading`.
+- For navigation after success, use `expo-router` `router.replace()`.

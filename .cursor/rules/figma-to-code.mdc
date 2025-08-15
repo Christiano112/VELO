@@ -1,0 +1,52 @@
+---
+description: Rules for generating Expo React Native code exactly from a Figma selection
+---
+# Figma → Expo React Native (Exactness Rules)
+
+Reference design: [VELO Figma](mdc:https://www.figma.com/design/43il9i4TWzrdHYORK4ClkD/VELO?node-id=29260-872&m=dev)
+
+## Core Principles
+- Pixel-accurate spacing, sizing, and typography; map to tokens when possible.
+- Use existing design system components before creating new ones.
+- Keep layout responsive using `SafeAreaView` and `ScrollView`.
+
+## Token Mapping
+- brand: `COLORS.light.brand` (#6E00CC)
+- text: `ThemedText` default color
+- icon-secondary: `COLORS.light.icon`
+- surface/background: `COLORS.light.white` / `COLORS.light.background`
+- border: `COLORS.light.borderColor`
+- input-bg: `COLORS.light.inputBg`
+- placeholder: `COLORS.light.placeholderColor`
+- spacing: `SPACING` (4,6,10,12,15,20,25,30,40,50)
+- typography: `ThemedText` types (`title`, `subtitle`, `default`, `defaultSemiBold`, `link`, `errorMessage`)
+
+## Layout Pattern (Screens)
+- Wrap in `SafeAreaView` and `ScrollView` (`keyboardShouldPersistTaps="handled"`).
+- Page padding: horizontal `SPACING.large` (20); vertical per Figma.
+- Center headers; let forms fill width.
+
+## Inputs
+- Use `AppInput` with controller from `react-hook-form`.
+- Labels rendered via `ThemedText` above fields when Figma shows labels.
+- Container minHeight 56, horizontal padding `SPACING.medium`.
+- Left icon 20px if shown; password toggle icon on the right.
+- Error text uses `ThemedText` with type `errorMessage` or style equivalent.
+
+## Buttons
+- Primary: `AppButton` with brand background, white text, radius 30, loading state.
+- Social buttons: `AppButton` with `isExpandable` when icon + text.
+
+## Validation
+- Use schemas in [utils/schema.ts](mdc:utils/schema.ts) and types from [types/form.ts](mdc:types/form.ts).
+- Ensure `@hookform/resolvers/yup` and wire `yupResolver(schema)`.
+
+## Navigation
+- Use `expo-router`'s `useRouter()`; navigate via `router.push()`/`router.replace()`.
+
+## Accessibility
+- Provide `accessibilityLabel` for icons; ensure contrast ratios.
+
+## Output Requirements
+- Generate only the necessary code edits; do not include commentary inside code.
+- Use project-relative imports with `@/` alias.

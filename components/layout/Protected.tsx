@@ -1,11 +1,7 @@
-import { View } from 'react-native';
+import { View } from "react-native";
 
 const ProtectedContainer = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <View>
-            {children}
-        </View>
-    );
-}
+  return <View>{children}</View>;
+};
 
 export default ProtectedContainer;

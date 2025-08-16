@@ -1,8 +1,8 @@
-import Slider from "@react-native-community/slider";
 import { COLORS } from "@/constants/Colors";
+import Slider from "@react-native-community/slider";
 import { type Control, Controller } from "react-hook-form";
-import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
+import { ThemedView } from "../ThemedView";
 
 type PropType = {
   id: string;
@@ -31,7 +31,7 @@ const AppSlider = ({
 }: PropType) => {
   return (
     <ThemedView>
-      {label && <ThemedText type="subtitle">{label}</ThemedText>}
+      {label && <ThemedText type="medium">{label}</ThemedText>}
       {control ? (
         <Controller
           control={control}

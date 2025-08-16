@@ -16,7 +16,7 @@
       "usesIcloudStorage": true,
       "bundleIdentifier": "com.velo.dev",
       "infoPlist": {
-        "NSFaceIDUsageDescription": "$(PRODUCT_NAME) uses Face ID for secure and convenient user authentication, ensuring only you can access your data.",
+        "NSFaceIDUsageDescription": "$(PRODUCT_NAME) uses Face ID for secure and convenient user authentication, ensuring only you can access your data."
       },
       "config": {
         "usesNonExemptEncryption": false
@@ -95,7 +95,7 @@
           "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
           "isAccessMediaLocationEnabled": true
         }
-      ],
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -88,7 +88,7 @@ const FileUploadInput = ({
     <ThemedView style={styles.uploadContainer}>
       {label && (
         <ThemedView style={styles.labelContainer}>
-          <ThemedText type="subtitle">{label}</ThemedText>
+          <ThemedText type="medium">{label}</ThemedText>
           {isMultiple && (
             <ThemedText style={styles.fileCount}>
               {files.length}/{maxFiles}

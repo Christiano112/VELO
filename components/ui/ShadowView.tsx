@@ -1,6 +1,6 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
-import React from 'react';
-import { Platform, View, type ViewProps } from 'react-native';
+import { useThemeColor } from "@/hooks/useThemeColor";
+import React from "react";
+import { Platform, View, type ViewProps } from "react-native";
 
 export type ShadowViewProps = ViewProps & {
   lightColor?: string;
@@ -26,8 +26,11 @@ export function ShadowView({
   elevation = 8,
   ...otherProps
 }: ShadowViewProps) {
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
-  const defaultShadowColor = useThemeColor({}, 'text');
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "background",
+  );
+  const defaultShadowColor = useThemeColor({}, "text");
 
   const shadowStyles = Platform.select({
     ios: {

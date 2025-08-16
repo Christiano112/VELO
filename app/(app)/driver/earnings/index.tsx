@@ -1,12 +1,12 @@
-import { View } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
+import { View } from "react-native";
+import { ThemedText } from "@/components/ThemedText";
 
 const DriverEarnings = () => {
-    return (
-        <View>
-            <ThemedText>DriverEarnings</ThemedText>
-        </View>
-    );
-}
+  return (
+    <View>
+      <ThemedText>DriverEarnings</ThemedText>
+    </View>
+  );
+};
 
 export default DriverEarnings;

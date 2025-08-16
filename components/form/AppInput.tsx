@@ -22,7 +22,6 @@ import {
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";
 
-
 interface PropType extends TextInputProps {
   id: string;
   label?: string;
@@ -37,29 +36,29 @@ interface PropType extends TextInputProps {
   setShowFilter?: Dispatch<SetStateAction<boolean>>;
   variant?: "default" | "form";
   type?:
-  | "email"
-  | "search"
-  | "select"
-  | "text"
-  | "none"
-  | "decimal"
-  | "numeric"
-  | "tel"
-  | "url"
-  | "date"
-  | "time";
+    | "email"
+    | "search"
+    | "select"
+    | "text"
+    | "none"
+    | "decimal"
+    | "numeric"
+    | "tel"
+    | "url"
+    | "date"
+    | "time";
   leftIconName?:
-  | "account"
-  | "lock"
-  | "cellphone-key"
-  | "map-marker"
-  | "phone"
-  | "email"
-  | "account-search"
-  | "weight-lifter"
-  | "human-male-height"
-  | "calendar-month"
-  | "comment-quote-outline";
+    | "account"
+    | "lock"
+    | "cellphone-key"
+    | "map-marker"
+    | "phone"
+    | "email"
+    | "account-search"
+    | "weight-lifter"
+    | "human-male-height"
+    | "calendar-month"
+    | "comment-quote-outline";
   containerStyle?: StyleProp<ViewStyle>;
   setValue?: UseFormSetValue<any>;
 }
@@ -127,9 +126,12 @@ const AppInput = ({
 
   return (
     <ThemedView
-      style={[{
-        marginBottom: variant === "form" ? SPACING.medium : 0,
-      }, containerStyle]}
+      style={[
+        {
+          marginBottom: variant === "form" ? SPACING.medium : 0,
+        },
+        containerStyle,
+      ]}
     >
       {label && (
         <ThemedText
@@ -140,7 +142,15 @@ const AppInput = ({
           {label}
         </ThemedText>
       )}
-      <ThemedView style={[styles.inputContainer, { backgroundColor: bgColor, borderColor: errorMessage ? COLORS.light.red : borderColor }]}>
+      <ThemedView
+        style={[
+          styles.inputContainer,
+          {
+            backgroundColor: bgColor,
+            borderColor: errorMessage ? COLORS.light.red : borderColor,
+          },
+        ]}
+      >
         {showLeftIcon && (
           <ThemedView
             style={[

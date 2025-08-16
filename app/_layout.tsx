@@ -1,19 +1,22 @@
 import "expo-dev-client";
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useCallback, useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Provider } from "@/components/layout/Provider";
-import { CustomSplashScreen } from '@/components/layout/Splash';
-import { COLORS } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
+import { CustomSplashScreen } from "@/components/layout/Splash";
+import { COLORS } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 const isLoggedIn = true;
 
@@ -24,7 +27,7 @@ export default function RootLayout() {
   const insets = useSafeAreaInsets();
   const [showCustomSplash, setShowCustomSplash] = useState(true);
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -58,7 +61,7 @@ export default function RootLayout() {
 
   return (
     <Provider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <GestureHandlerRootView
           onLayout={onLayoutRootView}
           style={{

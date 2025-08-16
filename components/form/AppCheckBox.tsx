@@ -51,9 +51,7 @@ const AppCheckBox = ({
           />
         )}
       </>
-      {labelPosition === "right" && (
-        <ThemedText>{label}</ThemedText>
-      )}
+      {labelPosition === "right" && <ThemedText>{label}</ThemedText>}
     </Pressable>
   );
 };

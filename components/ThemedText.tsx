@@ -1,8 +1,5 @@
 import { COLORS } from "@/constants/Colors";
-import {
-  FONT_SIZE,
-  SPACING,
-} from "@/constants/GlobalStyles";
+import { FONT_SIZE, SPACING } from "@/constants/GlobalStyles";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { StyleSheet, Text, type TextProps } from "react-native";
 
@@ -112,12 +109,7 @@ export const ThemedText = ({
 
   return (
     <Text
-      style={[
-        { color },
-        selectedStyle,
-        style,
-        { flexShrink: 1 },
-      ]}
+      style={[{ color }, selectedStyle, style, { flexShrink: 1 }]}
       {...rest}
     />
   );

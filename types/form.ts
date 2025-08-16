@@ -1,11 +1,11 @@
 import * as yup from "yup";
 import {
-    changePasswordSchema,
-    forgotPasswordSchema,
-    loginSchema,
-    resetPasswordSchema,
-    signUpSchema,
-    verifyOtpSchema,
+  changePasswordSchema,
+  forgotPasswordSchema,
+  loginSchema,
+  resetPasswordSchema,
+  signUpSchema,
+  verifyOtpSchema,
 } from "../utils/schema";
 
 export type LoginFormData = yup.InferType<typeof loginSchema>;

@@ -9,7 +9,6 @@ import { Modal, Platform, Pressable, StyleSheet } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";
 
-
 type PickerOption = { label: string; value: string | number };
 
 interface AppPickerProps extends PickerProps {
@@ -199,7 +198,7 @@ const AppPicker: React.FC<AppPickerProps> = ({
         { marginBottom: type === "form" ? SPACING.mLarge : 0 },
       ]}
     >
-      {label && <ThemedText type="subtitle">{label}</ThemedText>}
+      {label && <ThemedText type="medium">{label}</ThemedText>}
 
       {control ? (
         <Controller

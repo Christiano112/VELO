@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Link } from "expo-router";
 
 import AppButton from "@/components/form/AppButton";
 import AppInput from "@/components/form/AppInput";
@@ -9,7 +10,6 @@ import { SPACING } from "@/constants/GlobalStyles";
 import { useSubmit } from "@/hooks/useSubmit";
 import { ForgotPasswordFormData } from "@/types/form";
 import { forgotPasswordSchema } from "@/utils/schema";
-import { Link } from "expo-router";
 
 const ForgotPassword = () => {
     const {
@@ -27,22 +27,24 @@ const ForgotPassword = () => {
             <ThemedText style={styles.title}>Forgot Password?</ThemedText>
 
             <ThemedView style={styles.container}>
-                <AppInput
-                    id="phoneNumber"
-                    placeholder="Phone Number"
-                    control={control}
-                    errorMessage={errors.phoneNumber?.message}
-                    autoComplete="tel"
-                    type="tel"
-                    leftIconName="phone"
-                />
-                <AppButton
-                    type="form"
-                    onPress={handleSubmit(onSubmit)}
-                    isDisabled={!isDirty}
-                >
-                    Send Code
-                </AppButton>
+                <ThemedView style={styles.content}>
+                    <AppInput
+                        id="phoneNumber"
+                        placeholder="Phone Number"
+                        control={control}
+                        errorMessage={errors.phoneNumber?.message}
+                        autoComplete="tel"
+                        type="tel"
+                        leftIconName="phone"
+                    />
+                    <AppButton
+                        type="form"
+                        onPress={handleSubmit(onSubmit)}
+                        isDisabled={!isDirty}
+                    >
+                        Send Code
+                    </AppButton>
+                </ThemedView>
                 <ThemedText style={styles.noAccount} type="defaultMedium">Don’t have an account? <Link href="/auth/sign-up" style={styles.signUp}>Sign Up</Link></ThemedText>
             </ThemedView>
         </AuthContainer>
@@ -63,12 +65,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        gap: SPACING.normal,
         marginHorizontal: "auto",
-        marginTop: SPACING.xLarge,
+        marginVertical: SPACING.xLarge,
     },
-    link: {
-        color: "#9C27B0",
+    content: {
+        flex: 1,
+        gap: SPACING.normal,
     },
     noAccount: {
         textAlign: "center",

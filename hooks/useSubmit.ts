@@ -6,10 +6,8 @@ export const useSubmit = <T extends Record<string, any>>(
   schema: AnyObjectSchema,
   defaultValues: DefaultValues<T> | undefined
 ): UseFormReturn<T> => {
-  const formHook = useForm<T>({
+  return useForm<T>({
     resolver: yupResolver(schema) as Resolver<T>,
     defaultValues,
   });
-
-  return formHook;
 };

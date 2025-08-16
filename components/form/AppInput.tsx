@@ -89,7 +89,7 @@ const AppInput = ({
   const [borderColor, setBorderColor] = useState(COLORS.light.borderColor);
   const [pickedDate, setPickedDate] = useState<Date | undefined>(undefined);
   const [isPasswordVisible, setIsPasswordVisible] = useState(!secureTextEntry);
-  const bgColor = disabled ? COLORS.light.inputBg : COLORS.light.borderColor;
+  const bgColor = disabled ? COLORS.light.borderColor : COLORS.light.inputBg;
 
   const handleAndroidPicker = () => {
     DateTimePickerAndroid.open({
@@ -140,7 +140,7 @@ const AppInput = ({
           {label}
         </ThemedText>
       )}
-      <ThemedView style={[styles.inputContainer, { backgroundColor: bgColor, borderColor: errorMessage ? COLORS.light.red : borderColor, }]}>
+      <ThemedView style={[styles.inputContainer, { backgroundColor: bgColor, borderColor: errorMessage ? COLORS.light.red : borderColor }]}>
         {showLeftIcon && (
           <ThemedView
             style={[

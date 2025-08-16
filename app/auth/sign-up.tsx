@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
+import { Link, useRouter } from "expo-router";
 
 import AppButton from "@/components/form/AppButton";
 import AppCheckBox from "@/components/form/AppCheckBox";
@@ -12,9 +13,9 @@ import { SPACING } from "@/constants/GlobalStyles";
 import { useSubmit } from "@/hooks/useSubmit";
 import { SignupFormData } from "@/types/form";
 import { signUpSchema } from "@/utils/schema";
-import { Link } from "expo-router";
 
 const SignUp = () => {
+    const router = useRouter();
     const [agreedToTerms, setAgreedToTerms] = useState(false);
     const {
         control,
@@ -23,7 +24,8 @@ const SignUp = () => {
     } = useSubmit<SignupFormData>(signUpSchema, {});
 
     const onSubmit = (data: SignupFormData) => {
-        console.log(data)
+        console.log(data);
+        router.push("/auth/verification");
     }
 
     return (
@@ -31,77 +33,79 @@ const SignUp = () => {
             <ThemedText style={styles.title}>Sign Up</ThemedText>
 
             <ThemedView style={styles.container}>
-                <ThemedView style={styles.names}>
+                <ThemedView style={styles.content}>
+                    <ThemedView style={styles.names}>
+                        <AppInput
+                            id="firstName"
+                            placeholder="First Name"
+                            control={control}
+                            errorMessage={errors.firstName?.message}
+                            autoComplete="given-name"
+                            containerStyle={{ width: "55%" }}
+                        />
+                        <AppInput
+                            id="lastName"
+                            placeholder="Last Name"
+                            control={control}
+                            errorMessage={errors.lastName?.message}
+                            autoComplete="off"
+                            importantForAutofill="no"
+                            containerStyle={{ width: "55%" }}
+                        />
+                    </ThemedView>
                     <AppInput
-                        id="firstName"
-                        placeholder="First Name"
+                        id="phoneNumber"
+                        placeholder="Phone Number"
                         control={control}
-                        errorMessage={errors.firstName?.message}
-                        autoComplete="given-name"
-                        containerStyle={{ width: "55%" }}
+                        errorMessage={errors.phoneNumber?.message}
+                        autoComplete="tel"
+                        type="tel"
+                        leftIconName="phone"
                     />
                     <AppInput
-                        id="lastName"
-                        placeholder="Last Name"
+                        id="email"
+                        placeholder="Email"
                         control={control}
-                        errorMessage={errors.lastName?.message}
-                        autoComplete="off"
-                        importantForAutofill="no"
-                        containerStyle={{ width: "55%" }}
+                        errorMessage={errors.email?.message}
+                        autoComplete="email"
+                        type="email"
+                        leftIconName="email"
                     />
+                    <AppInput
+                        id="password"
+                        placeholder="New Password"
+                        leftIconName="lock"
+                        showRightIcon
+                        control={control}
+                        errorMessage={errors.password?.message}
+                        secureTextEntry
+                        autoComplete="new-password"
+                        keyboardType="visible-password"
+                    />
+                    <AppInput
+                        id="confirmPassword"
+                        placeholder="Confirm Password"
+                        leftIconName="lock"
+                        showRightIcon
+                        control={control}
+                        errorMessage={errors.confirmPassword?.message}
+                        secureTextEntry
+                        autoComplete="new-password"
+                        keyboardType="visible-password"
+                    />
+                    <AppButton
+                        type="form"
+                        onPress={handleSubmit(onSubmit)}
+                        isDisabled={!isDirty}
+                    >
+                        Create Account
+                    </AppButton>
+                    <ThemedView style={styles.terms}>
+                        <AppCheckBox checked={agreedToTerms} onValueChange={(checked) => setAgreedToTerms(checked)} />
+                        <ThemedText style={styles.check}>I have agreed with <Link href="/legal/terms-conditions" style={styles.link}>Terms & Conditions.</Link></ThemedText>
+                    </ThemedView>
                 </ThemedView>
-                <AppInput
-                    id="phoneNumber"
-                    placeholder="Phone Number"
-                    control={control}
-                    errorMessage={errors.phoneNumber?.message}
-                    autoComplete="tel"
-                    type="tel"
-                    leftIconName="phone"
-                />
-                <AppInput
-                    id="email"
-                    placeholder="Email"
-                    control={control}
-                    errorMessage={errors.email?.message}
-                    autoComplete="email"
-                    type="email"
-                    leftIconName="email"
-                />
-                <AppInput
-                    id="password"
-                    placeholder="New Password"
-                    leftIconName="lock"
-                    showRightIcon
-                    control={control}
-                    errorMessage={errors.password?.message}
-                    secureTextEntry
-                    autoComplete="new-password"
-                    keyboardType="visible-password"
-                />
-                <AppInput
-                    id="confirmPassword"
-                    placeholder="Confirm Password"
-                    leftIconName="lock"
-                    showRightIcon
-                    control={control}
-                    errorMessage={errors.confirmPassword?.message}
-                    secureTextEntry
-                    autoComplete="new-password"
-                    keyboardType="visible-password"
-                />
-                <AppButton
-                    type="form"
-                    onPress={handleSubmit(onSubmit)}
-                    isDisabled={!isDirty}
-                >
-                    Create Account
-                </AppButton>
-                <ThemedView style={styles.terms}>
-                    <AppCheckBox checked={agreedToTerms} onValueChange={(checked) => setAgreedToTerms(checked)} />
-                    <ThemedText style={styles.check}>I have agreed with <Link href="/legal/terms-conditions" style={styles.link}>Terms & Conditions.</Link></ThemedText>
-                </ThemedView>
-                <ThemedText style={styles.alreadyHaveAnAccount} type="defaultMedium">Already have an account? <Link href="/auth/forgot-password" style={styles.login}>Login</Link></ThemedText>
+                <ThemedText style={styles.alreadyHaveAnAccount} type="defaultMedium">Already have an account? <Link href="/auth/login" style={styles.login}>Login</Link></ThemedText>
             </ThemedView>
         </AuthContainer>
     )
@@ -121,9 +125,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        gap: SPACING.normal,
         marginHorizontal: "auto",
-        marginTop: SPACING.xLarge,
+        marginVertical: SPACING.xLarge,
+    },
+    content: {
+        flex: 1,
+        gap: SPACING.normal,
     },
     names: {
         display: "flex",

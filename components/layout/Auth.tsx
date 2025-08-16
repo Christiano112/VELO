@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
         maxWidth: 485,
         width: "100%",
         marginHorizontal: "auto",
+        paddingTop: SPACING.xLarge,
     },
     container: {
         width: "100%",

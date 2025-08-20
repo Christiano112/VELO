@@ -146,5 +146,6 @@ const styles = StyleSheet.create({
   signUp: {
     fontWeight: "700",
     color: "#6e00cc",
+    textDecorationLine: "underline",
   },
 });

@@ -137,7 +137,7 @@ export const CustomSplashScreen = () => {
           ]}
         >
           <Image
-            source={IMAGES.LOGO}
+            source={IMAGES.WHITE_LOGO}
             style={[
               styles.logoImage,
               {
@@ -148,8 +148,6 @@ export const CustomSplashScreen = () => {
             resizeMode="contain"
           />
         </Animated.View>
-
-        <Text style={styles.appName}>VELO</Text>
 
         <Text style={styles.tagline}>Verified Driver. Verified Rider.</Text>
 
@@ -260,17 +258,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 20,
     elevation: 10,
-  },
-  appName: {
-    fontSize: FONT_SIZE.xxLarge + 10,
-    fontWeight: "bold",
-    color: COLORS.light.white,
-    marginBottom: SPACING.medium,
-    textAlign: "center",
-    letterSpacing: 1,
-    textShadowColor: "rgba(0, 0, 0, 0.3)",
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
   },
   tagline: {
     fontSize: FONT_SIZE.normal,

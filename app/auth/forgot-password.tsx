@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
 import { Link } from "expo-router";
+import { StyleSheet } from "react-native";
 
 import AppButton from "@/components/form/AppButton";
 import AppInput from "@/components/form/AppInput";
@@ -86,5 +86,6 @@ const styles = StyleSheet.create({
   signUp: {
     fontWeight: "700",
     color: "#6e00cc",
+    textDecorationLine: "underline",
   },
 });

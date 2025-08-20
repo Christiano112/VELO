@@ -60,86 +60,6 @@ const commonValidators = {
     return required ? baseSchema.required(message) : baseSchema.optional();
   },
 
-  imageFile: (
-    fieldName: string,
-    maxSizeMB: number = 5,
-    required: boolean = false,
-  ) =>
-    yup
-      .mixed<FileList>()
-      .test(`${fieldName}-validation`, `Invalid ${fieldName} file`, (value) => {
-        if (!value || value.length === 0) {
-          return required
-            ? new yup.ValidationError(
-                `${fieldName} is required`,
-                null,
-                fieldName,
-              )
-            : true;
-        }
-
-        const file = value[0];
-        const maxSizeInBytes = maxSizeMB * 1024 * 1024;
-        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-
-        if (file.size > maxSizeInBytes) {
-          return new yup.ValidationError(
-            `${fieldName} is too large. Maximum size is ${maxSizeMB}MB.`,
-            null,
-            fieldName,
-          );
-        }
-
-        if (!allowedTypes.includes(file.type)) {
-          return new yup.ValidationError(
-            `Unsupported file type for ${fieldName}. Please use JPEG, PNG, or WebP.`,
-            null,
-            fieldName,
-          );
-        }
-
-        return true;
-      })
-      .optional(),
-
-  documentFile: (fieldName: string, maxSizeMB: number = 5) =>
-    yup
-      .mixed<FileList>()
-      .test(`${fieldName}-validation`, `Invalid ${fieldName} file`, (value) => {
-        if (!value || value.length === 0) {
-          return true;
-        }
-
-        const file = value[0];
-        const maxSizeInBytes = maxSizeMB * 1024 * 1024;
-        const allowedTypes = [
-          "image/jpeg",
-          "image/png",
-          "application/pdf",
-          "application/msword",
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        ];
-
-        if (file.size > maxSizeInBytes) {
-          return new yup.ValidationError(
-            `${fieldName} is too large. Maximum size is ${maxSizeMB}MB.`,
-            null,
-            fieldName,
-          );
-        }
-
-        if (!allowedTypes.includes(file.type)) {
-          return new yup.ValidationError(
-            `Unsupported file type for ${fieldName}. Please use PDF or Word documents.`,
-            null,
-            fieldName,
-          );
-        }
-
-        return true;
-      })
-      .optional(),
-
   positiveNumber: (fieldName: string, required: boolean = false) => {
     const schema = yup
       .number()
@@ -284,5 +204,15 @@ export const changePasswordSchema = yup
         "New password must be different from the current one",
       ),
     confirmPassword: commonValidators.confirmPassword("newPassword"),
+  })
+  .required();
+
+export const updateProfileSchema = yup
+  .object({
+    firstName: commonValidators.optionalTrimmedString(),
+    lastName: commonValidators.optionalTrimmedString(),
+    phoneNumber: commonValidators.optionalTrimmedString(),
+    email: commonValidators.email(),
+    avatar: commonValidators.optionalTrimmedString(),
   })
   .required();

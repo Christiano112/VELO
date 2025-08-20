@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { ReactNode } from "react";
 import {
@@ -10,6 +11,7 @@ import {
 
 import { COLORS } from "@/constants/Colors";
 import { SPACING } from "@/constants/GlobalStyles";
+import { IMAGES } from "@/constants/Images";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedView } from "../ThemedView";
 
@@ -30,6 +32,7 @@ const AuthContainer = ({ children }: PropType) => {
           <Ionicons name="chevron-back" size={24} color="white" />
         </Pressable>
       )}
+      <Image source={IMAGES.WHITE_LOGO} style={styles.logo} alt="Logo" />
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
@@ -46,11 +49,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: COLORS.light.brand,
-    paddingTop: SPACING.xLarge * 2,
+    paddingTop: SPACING.large,
   },
   backButton: {
     paddingHorizontal: 24,
-    marginBottom: SPACING.xxLarge,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -62,12 +64,19 @@ const styles = StyleSheet.create({
     paddingTop: SPACING.xLarge,
   },
   container: {
+    flex: 1,
     width: "100%",
     height: "100%",
     borderTopLeftRadius: 74,
     paddingHorizontal: 24,
-    paddingBottom: SPACING.xLarge,
     paddingTop: SPACING.xmLarge,
     backgroundColor: COLORS.light.background,
+  },
+  logo: {
+    width: 200,
+    height: 90,
+    objectFit: "contain",
+    marginBottom: SPACING.large,
+    alignSelf: "center",
   },
 });

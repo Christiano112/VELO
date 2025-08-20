@@ -52,7 +52,7 @@ const Login = () => {
             keyboardType="visible-password"
           />
           <Link href="/auth/forgot-password" style={styles.forgotPassword}>
-            Forgot your password?
+            Forgot Password?
           </Link>
           <AppButton
             type="form"
@@ -108,5 +108,6 @@ const styles = StyleSheet.create({
   signUp: {
     fontWeight: "700",
     color: "#6e00cc",
+    textDecorationLine: "underline",
   },
 });

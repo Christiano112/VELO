@@ -22,7 +22,7 @@ interface AppPickerProps extends PickerProps {
   options?: PickerOption[];
 }
 
-const AppPicker: React.FC<AppPickerProps> = ({
+const AppPicker = ({
   id,
   control,
   errorMessage,
@@ -33,7 +33,7 @@ const AppPicker: React.FC<AppPickerProps> = ({
   type = "default",
   placeholder = "Select an option",
   ...rest
-}) => {
+}: AppPickerProps) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedValue, setSelectedValue] = useState<ItemValue>("");
 

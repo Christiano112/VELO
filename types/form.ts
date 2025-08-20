@@ -6,6 +6,7 @@ import {
   resetPasswordSchema,
   signUpSchema,
   verifyOtpSchema,
+  updateProfileSchema,
 } from "../utils/schema";
 
 export type LoginFormData = yup.InferType<typeof loginSchema>;
@@ -14,3 +15,4 @@ export type ForgotPasswordFormData = yup.InferType<typeof forgotPasswordSchema>;
 export type VerifyOtpFormData = yup.InferType<typeof verifyOtpSchema>;
 export type ChangePasswordFormData = yup.InferType<typeof changePasswordSchema>;
 export type ResetPasswordFormData = yup.InferType<typeof resetPasswordSchema>;
+export type UpdateProfileFormData = yup.InferType<typeof updateProfileSchema>;

@@ -176,5 +176,6 @@ const styles = StyleSheet.create({
   login: {
     fontWeight: "700",
     color: "#6e00cc",
+    textDecorationLine: "underline",
   },
 });

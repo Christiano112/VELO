@@ -66,7 +66,7 @@ export default function RootLayout() {
           onLayout={onLayoutRootView}
           style={{
             flex: 1,
-            // paddingTop: insets.top,
+            paddingTop: insets.top,
             paddingLeft: insets.left,
             paddingRight: insets.right,
             backgroundColor: COLORS.light.brand,
@@ -81,7 +81,7 @@ export default function RootLayout() {
               <Stack.Screen name="auth" />
             </Stack.Protected>
           </Stack>
-          <StatusBar style="dark" />
+          <StatusBar style="auto" />
         </GestureHandlerRootView>
       </ThemeProvider>
     </Provider>

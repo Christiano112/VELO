@@ -1,3 +1,5 @@
+import { IMAGES } from "./Images";
+
 export const DATES = {
   TODAY: new Date(new Date().setDate(new Date().getDate())),
   TOMORROW: new Date(new Date().setDate(new Date().getDate() + 1)),
@@ -108,3 +110,60 @@ export const notifications = [
     message: "Earlier payment issues have been fixed. Thanks for patience.",
   },
 ];
+
+export const helpItems = [
+  {
+    id: 1,
+    question: "How do I reset my password?",
+    answer:
+      "To reset your password, go to the login screen and tap 'Forgot Password'. Enter your email address and we'll send you a reset link. Follow the instructions in the email to create a new password.",
+  },
+  {
+    id: 2,
+    question: "How do I contact customer support?",
+    answer:
+      "You can contact our customer support team through the 'Contact Us' section in Settings, or email us directly at support@example.com. We typically respond within 24 hours.",
+  },
+  {
+    id: 3,
+    question: "How do I update my profile information?",
+    answer:
+      "Navigate to Settings > Profile to update your personal information, including name, email, phone number, and profile picture. Changes are saved automatically.",
+  },
+  {
+    id: 4,
+    question: "How do I enable notifications?",
+    answer:
+      "Go to Settings > Notifications to customize your notification preferences. You can enable or disable different types of notifications and set quiet hours.",
+  },
+];
+
+export const rides = Array.from({ length: 22 }, (_, index) => ({
+  id: index + 1,
+  vehicleType: `Sedan ${index + 1}`,
+  pickup: `Pickup ${index + 1}`,
+  destination: `Destination ${index + 1}`,
+  status: index % 2 === 0 ? "completed" : "cancelled",
+  date: new Date(Date.now() - index * 86400000).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }),
+}));
+
+export const rideDetail = {
+  carType: "Sedan x1",
+  dateOfRide: "28/10/2024",
+  rideId: "RD1561V461321",
+  status: "completed",
+  driver: {
+    name: "Ravi Das",
+    license: "PB 65 L 4578",
+    avatar: IMAGES.DRIVER,
+  },
+  distance: "1.25 km",
+  duration: "15 mins",
+};

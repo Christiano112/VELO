@@ -35,7 +35,11 @@ export const LoadingState = ({
         <ThemedText style={styles.errorText}>
           Unable to load location
         </ThemedText>
-        <TouchableOpacity style={styles.retryButton} onPress={onRetry}>
+        <TouchableOpacity
+          style={styles.retryButton}
+          onPress={onRetry}
+          activeOpacity={0.7}
+        >
           <ThemedText style={styles.retryButtonText}>Retry</ThemedText>
         </TouchableOpacity>
       </View>

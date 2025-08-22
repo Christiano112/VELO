@@ -23,7 +23,6 @@ const CustomerProfile = () => {
 
   const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
     title: "Profile",
-    transitionThreshold: 100,
   });
 
   return (

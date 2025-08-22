@@ -9,7 +9,6 @@ import { notifications } from "@/constants/StaticData";
 const CustomerNotification = () => {
   const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
     title: "Notification",
-    transitionThreshold: 100,
   });
 
   return (
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xxLarge,
   },
   notificationItem: {
-    paddingVertical: 16,
+    paddingVertical: SPACING.normal,
   },
   notificationTitle: {
     fontSize: 16,

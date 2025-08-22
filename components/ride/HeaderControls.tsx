@@ -25,7 +25,7 @@ export const HeaderControls = ({
         <TouchableOpacity
           style={styles.menuButton}
           onPress={onMenuPress}
-          activeOpacity={0.8}
+          activeOpacity={0.7}
         >
           <Ionicons name="menu" size={24} color="#374151" />
         </TouchableOpacity>
@@ -35,7 +35,7 @@ export const HeaderControls = ({
         <TouchableOpacity
           style={[styles.menuButton, isRefreshing && styles.refreshingButton]}
           onPress={onLocationPress}
-          activeOpacity={0.8}
+          activeOpacity={0.7}
           disabled={isRefreshing}
         >
           {isRefreshing ? (

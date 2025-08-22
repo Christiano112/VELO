@@ -82,7 +82,7 @@ const Avatar = ({
     <View style={[styles.container, avatarStyles.container, style]}>
       {src && !imageHasError ? (
         <Image
-          source={{ uri: src }}
+          source={typeof src === "string" ? { uri: src } : src}
           style={avatarStyles.image}
           onError={() => setImageHasError(true)}
           cachePolicy="memory-disk"

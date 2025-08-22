@@ -149,7 +149,7 @@ export const RideSelectionBottomSheet = ({
                 ]}
                 onPress={onBookRide}
                 disabled={isBooking}
-                activeOpacity={0.8}
+                activeOpacity={0.7}
               >
                 <LinearGradient
                   colors={["#6366f1", "#4f46e5"]}

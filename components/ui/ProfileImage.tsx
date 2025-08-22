@@ -32,7 +32,7 @@ export const ProfileImage = ({ id, control }: Props) => {
       <TouchableOpacity
         style={styles.imageContainer}
         onPress={selectImage}
-        activeOpacity={0.8}
+        activeOpacity={0.7}
       >
         {profileImage ? (
           <Image source={{ uri: profileImage }} style={styles.profileImage} />

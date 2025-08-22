@@ -80,6 +80,8 @@ export const AnimatedHeader = ({
     extrapolate: "clamp",
   });
 
+  const isCompact = scrollOffset > transitionThreshold * 0.8;
+
   return {
     headerComponent: (
       <View
@@ -89,66 +91,68 @@ export const AnimatedHeader = ({
           showBorder && styles.border,
         ]}
       >
-        {/* Original Header */}
-        <Animated.View
-          style={[styles.header, style, { opacity: headerOpacity }]}
-        >
-          <View style={styles.leftComponent}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => router.back()}
+        {!isCompact ? (
+          /* Original Header */
+          <Animated.View
+            style={[styles.header, style, { opacity: headerOpacity }]}
+            pointerEvents={isCompact ? "auto" : "none"}
+          >
+            <View style={styles.leftComponent}>
+              <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => router.back()}
+                activeOpacity={0.7}
+              >
+                <Ionicons name="arrow-back" size={24} color="#394347" />
+              </TouchableOpacity>
+            </View>
+            <Animated.Text
+              style={[
+                styles.headerTitle,
+                titleStyle,
+                {
+                  transform: [
+                    { translateY: titleTranslateY },
+                    { scale: titleScale },
+                  ],
+                },
+              ]}
             >
-              <Ionicons name="arrow-back" size={24} color="#394347" />
-            </TouchableOpacity>
-          </View>
-          <Animated.Text
+              {title}
+            </Animated.Text>
+            {showRightComponent && (
+              <View style={styles.rightComponent}>{rightComponent}</View>
+            )}
+          </Animated.View>
+        ) : (
+          /* Compact Header */
+          <Animated.View
             style={[
-              styles.headerTitle,
-              titleStyle,
-              {
-                transform: [
-                  { translateY: titleTranslateY },
-                  { scale: titleScale },
-                ],
-              },
+              styles.compactHeader,
+              style,
+              { opacity: compactHeaderOpacity },
             ]}
           >
-            {title}
-          </Animated.Text>
-          {showRightComponent && (
-            <View style={styles.rightComponent}>{rightComponent}</View>
-          )}
-        </Animated.View>
-
-        {/* Compact Header */}
-        <Animated.View
-          style={[
-            styles.compactHeader,
-            style,
-            { opacity: compactHeaderOpacity },
-          ]}
-          pointerEvents={
-            scrollOffset > transitionThreshold * 0.8 ? "auto" : "none"
-          }
-        >
-          <View style={styles.leftComponent}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => router.back()}
+            <View style={styles.leftComponent}>
+              <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => router.back()}
+                activeOpacity={0.7}
+              >
+                <Ionicons name="arrow-back" size={24} color="#394347" />
+              </TouchableOpacity>
+            </View>
+            <Text
+              style={[styles.compactHeaderTitle, compactTitleStyle]}
+              pointerEvents="none"
             >
-              <Ionicons name="arrow-back" size={24} color="#394347" />
-            </TouchableOpacity>
-          </View>
-          <Text
-            pointerEvents="none"
-            style={[styles.compactHeaderTitle, compactTitleStyle]}
-          >
-            {title}
-          </Text>
-          {showRightComponent && (
-            <View style={styles.rightComponent}>{rightComponent}</View>
-          )}
-        </Animated.View>
+              {title}
+            </Text>
+            {showRightComponent && (
+              <View style={styles.rightComponent}>{rightComponent}</View>
+            )}
+          </Animated.View>
+        )}
       </View>
     ),
     scrollProps: {
@@ -156,6 +160,7 @@ export const AnimatedHeader = ({
       scrollEventThrottle: 16,
     },
     headerHeight: 100,
+    isCompact,
   };
 };
 

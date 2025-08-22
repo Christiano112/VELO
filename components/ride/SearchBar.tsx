@@ -38,6 +38,7 @@ export const SearchBar = ({
           <TouchableOpacity
             onPress={() => onSearchChange("")}
             style={styles.clearButton}
+            activeOpacity={0.7}
           >
             <Ionicons name="close-circle" size={20} color="#9ca3af" />
           </TouchableOpacity>

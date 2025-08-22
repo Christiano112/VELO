@@ -58,7 +58,7 @@ export const RouteInfoCard = ({
       <TouchableOpacity
         style={styles.bookRideButton}
         onPress={() => router.push("/customer/book-ride")}
-        activeOpacity={0.8}
+        activeOpacity={0.7}
       >
         <Text style={styles.bookRideText}>Book Ride</Text>
       </TouchableOpacity>

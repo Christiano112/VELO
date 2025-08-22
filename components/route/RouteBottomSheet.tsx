@@ -59,7 +59,10 @@ export const RouteBottomSheet = ({
               placeholderTextColor="#9ca3af"
             />
             {searchQuery.length > 0 && (
-              <TouchableOpacity onPress={() => setSearchQuery("")}>
+              <TouchableOpacity
+                onPress={() => setSearchQuery("")}
+                activeOpacity={0.7}
+              >
                 <Ionicons name="close-circle" size={20} color="#9ca3af" />
               </TouchableOpacity>
             )}

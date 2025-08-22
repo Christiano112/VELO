@@ -17,6 +17,47 @@ import DeleteAccountBottomSheet from "@/components/ui/DeleteAccountBottomSheet";
 import { COLORS } from "@/constants/Colors";
 import { FONT_SIZE, SPACING } from "@/constants/GlobalStyles";
 
+const MenuSection = ({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: any;
+}) => <ThemedView style={[styles.menuSection, style]}>{children}</ThemedView>;
+
+const MenuItem = ({
+  icon,
+  title,
+  onPress,
+  showArrow = true,
+  isDestructive = false,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  onPress: () => void;
+  showArrow?: boolean;
+  isDestructive?: boolean;
+}) => (
+  <TouchableOpacity
+    style={styles.menuItem}
+    onPress={onPress}
+    activeOpacity={0.7}
+  >
+    <ThemedView style={styles.menuItemLeft}>
+      <ThemedView style={styles.iconContainer}>{icon}</ThemedView>
+      <ThemedText
+        style={[styles.menuItemText, isDestructive && styles.destructiveText]}
+        type="defaultMedium"
+      >
+        {title}
+      </ThemedText>
+    </ThemedView>
+    {showArrow && (
+      <Ionicons name="chevron-forward" size={16} color={COLORS.light.icon} />
+    )}
+  </TouchableOpacity>
+);
+
 const CustomerMenu = () => {
   const router = useRouter();
   const logoutSheetRef = useRef<any>(null);
@@ -60,45 +101,7 @@ const CustomerMenu = () => {
 
   const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
     title: "Menu",
-    transitionThreshold: 100,
   });
-
-  const MenuSection = ({
-    children,
-    style,
-  }: {
-    children: React.ReactNode;
-    style?: any;
-  }) => <ThemedView style={[styles.menuSection, style]}>{children}</ThemedView>;
-
-  const MenuItem = ({
-    icon,
-    title,
-    onPress,
-    showArrow = true,
-    isDestructive = false,
-  }: {
-    icon: React.ReactNode;
-    title: string;
-    onPress: () => void;
-    showArrow?: boolean;
-    isDestructive?: boolean;
-  }) => (
-    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-      <ThemedView style={styles.menuItemLeft}>
-        <ThemedView style={styles.iconContainer}>{icon}</ThemedView>
-        <ThemedText
-          style={[styles.menuItemText, isDestructive && styles.destructiveText]}
-          type="defaultMedium"
-        >
-          {title}
-        </ThemedText>
-      </ThemedView>
-      {showArrow && (
-        <Ionicons name="chevron-forward" size={16} color={COLORS.light.icon} />
-      )}
-    </TouchableOpacity>
-  );
 
   return (
     <ThemedView style={styles.container}>
@@ -120,7 +123,10 @@ const CustomerMenu = () => {
               +91 70945-67890
             </ThemedText>
           </ThemedView>
-          <TouchableOpacity onPress={() => router.push("/customer/profile")}>
+          <TouchableOpacity
+            onPress={() => router.push("/customer/profile")}
+            activeOpacity={0.7}
+          >
             <Feather name="edit-2" size={16} color={COLORS.light.icon} />
           </TouchableOpacity>
         </ThemedView>

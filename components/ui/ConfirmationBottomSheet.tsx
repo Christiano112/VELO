@@ -47,7 +47,7 @@ const ConfirmationBottomSheet = forwardRef<
           appearsOnIndex={0}
           opacity={0.3}
           enableTouchThrough={false}
-          pressBehavior="none"
+          pressBehavior="close"
           style={{ zIndex: 3 }}
         />
       ),
@@ -57,11 +57,13 @@ const ConfirmationBottomSheet = forwardRef<
     const handleConfirm = () => {
       Keyboard.dismiss();
       onConfirm();
+      (ref as React.RefObject<BottomSheet>).current?.close();
     };
 
     const handleCancel = () => {
       Keyboard.dismiss();
       onCancel();
+      (ref as React.RefObject<BottomSheet>).current?.close();
     };
 
     return (

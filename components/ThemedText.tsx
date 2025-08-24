@@ -25,36 +25,30 @@ export type ThemedTextProps = TextProps & {
 const typeStyles = {
   default: {
     fontSize: FONT_SIZE.normal,
-    lineHeight: 24,
     // fontFamily: FONT_FAMILY.poppins,
   },
   defaultMedium: {
     fontSize: FONT_SIZE.normal,
-    lineHeight: 24,
     fontWeight: "500",
     // fontFamily: FONT_FAMILY.poppinsMedium,
   },
   defaultSemiBold: {
     fontSize: FONT_SIZE.normal,
-    lineHeight: 24,
     fontWeight: "600",
     // fontFamily: FONT_FAMILY.poppinsSemiBold,
   },
   defaultBold: {
     fontSize: FONT_SIZE.normal,
-    lineHeight: 24,
     fontWeight: "700",
     // fontFamily: FONT_FAMILY.poppinsBold,
   },
   defaultExtraBold: {
     fontSize: FONT_SIZE.normal,
-    lineHeight: 24,
     fontWeight: "800",
     // fontFamily: FONT_FAMILY.poppinsExtraBold,
   },
   defaultBlack: {
     fontSize: FONT_SIZE.normal,
-    lineHeight: 24,
     fontWeight: "900",
     // fontFamily: FONT_FAMILY.poppinsBlack,
   },
@@ -107,12 +101,7 @@ export const ThemedText = ({
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
   const selectedStyle = styles[type] || styles.default;
 
-  return (
-    <Text
-      style={[{ color }, selectedStyle, style, { flexShrink: 1 }]}
-      {...rest}
-    />
-  );
+  return <Text style={[{ color }, selectedStyle, style]} {...rest} />;
 };
 
 const styles = StyleSheet.create(typeStyles);

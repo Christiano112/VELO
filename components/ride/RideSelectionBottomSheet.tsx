@@ -4,7 +4,7 @@ import BottomSheet, {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { RefObject, useMemo, useState } from "react";
+import { RefObject, useMemo, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { PaymentMethod, RideOption } from "../../types/ride";
 import { PaymentMethodCard } from "./PaymentMethodCard";

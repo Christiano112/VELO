@@ -1,6 +1,6 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import * as Location from "expo-location";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Animated, SafeAreaView, StyleSheet, TextInput } from "react-native";
 import MapView from "react-native-maps";
 

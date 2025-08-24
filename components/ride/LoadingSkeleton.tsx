@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { View, Animated, StyleSheet } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated, StyleSheet, View } from "react-native";
 
 interface LoadingSkeletonProps {
   width?: number | string;
@@ -60,7 +60,6 @@ export const LoadingSkeleton = () => {
     <View style={styles.container}>
       {/* Header Controls Skeleton */}
       <View style={styles.headerControls}>
-        <SkeletonItem width={48} height={48} borderRadius={24} />
         <SkeletonItem width={48} height={48} borderRadius={24} />
       </View>
 
@@ -136,8 +135,6 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     zIndex: 30,
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   mapArea: {
     flex: 1,

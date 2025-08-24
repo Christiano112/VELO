@@ -6,7 +6,7 @@ import { useDriverTracking } from "@/hooks/useDriverTracking";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   Alert,
   Animated,
@@ -31,7 +31,7 @@ const COLORS = {
   shadow: "rgba(0, 0, 0, 0.16)",
 } as const;
 
-const DriverInfo: React.FC = () => {
+const DriverInfo = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const mapRef = useRef<MapView>(null);
   const pulseAnimation = useRef(new Animated.Value(0)).current;

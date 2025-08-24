@@ -3,11 +3,11 @@ import BottomSheet, {
   BottomSheetBackdropProps,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import React, { forwardRef, useCallback } from "react";
-import { Keyboard, Pressable, StyleSheet } from "react-native";
+import { forwardRef, ReactNode, RefObject, useCallback } from "react";
+import { Keyboard, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import AppButton from "@/components/form/AppButton";
+import { AppButton } from "@/components/form/AppButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { COLORS } from "@/constants/Colors";
@@ -19,7 +19,7 @@ interface ConfirmationBottomSheetProps {
   onCancel: () => void;
   confirmText?: string;
   cancelText?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const ConfirmationBottomSheet = forwardRef<
@@ -57,13 +57,13 @@ const ConfirmationBottomSheet = forwardRef<
     const handleConfirm = () => {
       Keyboard.dismiss();
       onConfirm();
-      (ref as React.RefObject<BottomSheet>).current?.close();
+      (ref as RefObject<BottomSheet>).current?.close();
     };
 
     const handleCancel = () => {
       Keyboard.dismiss();
       onCancel();
-      (ref as React.RefObject<BottomSheet>).current?.close();
+      (ref as RefObject<BottomSheet>).current?.close();
     };
 
     return (
@@ -89,16 +89,12 @@ const ConfirmationBottomSheet = forwardRef<
           </ThemedText>
           {children}
           <ThemedView style={styles.sheetButtons}>
-            <Pressable onPress={handleCancel} style={styles.cancelButton}>
-              <ThemedText
-                type="defaultSemiBold"
-                style={styles.cancelButtonText}
-                selectable={false}
-              >
-                {cancelText}
-              </ThemedText>
-            </Pressable>
-            <AppButton onPress={handleConfirm}>{confirmText}</AppButton>
+            <AppButton
+              title={cancelText}
+              onPress={handleCancel}
+              variant="destructive"
+            />
+            <AppButton title={confirmText} onPress={handleConfirm} />
           </ThemedView>
         </BottomSheetView>
       </BottomSheet>
@@ -126,19 +122,6 @@ const styles = StyleSheet.create({
     gap: SPACING.large,
     backgroundColor: COLORS.light.transparent,
     marginBottom: SPACING.large,
-  },
-  cancelButton: {
-    paddingHorizontal: SPACING.xLarge,
-    paddingVertical: SPACING.BMedium,
-    borderRadius: SPACING.medium,
-    borderWidth: 1,
-    borderColor: COLORS.light.red,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cancelButtonText: {
-    fontSize: FONT_SIZE.medium,
-    color: COLORS.light.red,
   },
 });
 

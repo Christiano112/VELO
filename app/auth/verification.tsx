@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { StyleSheet } from "react-native";
 import { OtpInput, OtpInputRef } from "react-native-otp-entry";
 
-import AppButton from "@/components/form/AppButton";
+import { AppButton } from "@/components/form/AppButton";
 import AuthContainer from "@/components/layout/Auth";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -70,12 +70,10 @@ const Verification = () => {
             </ThemedText>
           )}
           <AppButton
-            type="form"
+            title="Verify"
             onPress={handleSubmit(onSubmit)}
             isDisabled={!isDirty}
-          >
-            Verify
-          </AppButton>
+          />
         </ThemedView>
         <ThemedText style={styles.noAccount} type="defaultMedium">
           Don’t have an account?{" "}

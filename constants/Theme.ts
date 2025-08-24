@@ -15,12 +15,13 @@ export const theme = {
     background: "#FFFFFF",
     inputBackground: "#F7F8F9",
     borderColor: "#E8ECF4",
-    modalBackdrop: "rgba(57, 67, 71, 0.6)",
-    success: "#28A745",
+    cardBackground: "#FAF3FF",
+    cardBorder: "rgba(110, 0, 204, 0.5)",
+    danger: "#EB5757",
     disabled: "#E0E0E0",
+    modalBackdrop: "rgba(0, 0, 0, 0.5)",
   },
   typography: {
-    baseFont: Platform.OS === "ios" ? "System" : "Roboto",
     getFont: (weight: FontWeight = "400", size: number = 16) => ({
       fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
       fontWeight: weight,

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
+import ScrollContainer from "@/components/layout/HeaderScroll";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { AnimatedHeader } from "@/components/ui/AnimatedHeader";
 import { SPACING } from "@/constants/GlobalStyles";
 import { helpItems } from "@/constants/StaticData";
 import { Ionicons } from "@expo/vector-icons";
@@ -22,67 +22,47 @@ const Help = () => {
     }));
   };
 
-  const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
-    title: "Help",
-  });
-
   return (
-    <ThemedView style={styles.container}>
-      {headerComponent}
+    <ScrollContainer title="Help">
+      <ThemedView style={styles.helpContainer}>
+        {helpItems?.map((item, index) => (
+          <ThemedView key={item.id}>
+            <TouchableOpacity
+              style={styles.helpItem}
+              onPress={() => toggleExpand(item.id)}
+              activeOpacity={0.7}
+            >
+              <ThemedText style={styles.questionText}>
+                {item.question}
+              </ThemedText>
+              <Ionicons
+                name={expandedItems[item.id] ? "remove" : "add"}
+                size={20}
+                color="#394347"
+              />
+            </TouchableOpacity>
 
-      <ScrollView
-        contentContainerStyle={[{ paddingTop: headerHeight }]}
-        showsVerticalScrollIndicator={false}
-        {...scrollProps}
-      >
-        <ThemedView style={styles.helpContainer}>
-          {helpItems?.map((item, index) => (
-            <ThemedView key={item.id}>
-              <TouchableOpacity
-                style={styles.helpItem}
-                onPress={() => toggleExpand(item.id)}
-                activeOpacity={0.7}
-              >
-                <ThemedText style={styles.questionText}>
-                  {item.question}
-                </ThemedText>
-                <Ionicons
-                  name={expandedItems[item.id] ? "remove" : "add"}
-                  size={20}
-                  color="#394347"
-                />
-              </TouchableOpacity>
+            {expandedItems[item.id] && (
+              <ThemedView style={styles.answerContainer}>
+                <ThemedText style={styles.answerText}>{item.answer}</ThemedText>
+              </ThemedView>
+            )}
 
-              {expandedItems[item.id] && (
-                <ThemedView style={styles.answerContainer}>
-                  <ThemedText style={styles.answerText}>
-                    {item.answer}
-                  </ThemedText>
-                </ThemedView>
-              )}
-
-              {index < helpItems.length - 1 && (
-                <ThemedView style={styles.separator} />
-              )}
-            </ThemedView>
-          ))}
-        </ThemedView>
-      </ScrollView>
-    </ThemedView>
+            {index < helpItems.length - 1 && (
+              <ThemedView style={styles.separator} />
+            )}
+          </ThemedView>
+        ))}
+      </ThemedView>
+    </ScrollContainer>
   );
 };
 
 export default Help;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
-    paddingHorizontal: SPACING.large,
-    marginBottom: SPACING.xxLarge,
     gap: SPACING.medium,
-    marginTop: SPACING.normal,
   },
   helpContainer: {
     margin: SPACING.normal,

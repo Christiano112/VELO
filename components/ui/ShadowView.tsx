@@ -1,5 +1,4 @@
 import { useThemeColor } from "@/hooks/useThemeColor";
-import React from "react";
 import { Platform, View, type ViewProps } from "react-native";
 
 type ShadowType = "light" | "medium" | "heavy" | "card" | "button";

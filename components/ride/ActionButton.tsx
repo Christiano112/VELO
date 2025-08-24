@@ -1,5 +1,4 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface ActionButtonProps {
@@ -11,14 +10,14 @@ interface ActionButtonProps {
   backgroundColor?: string;
 }
 
-export const ActionButton: React.FC<ActionButtonProps> = ({
+export const ActionButton = ({
   icon,
   label,
   onPress,
   iconFamily = "Ionicons",
   color = "#394347",
   backgroundColor = "#ffffff",
-}) => {
+}: ActionButtonProps) => {
   const IconComponent =
     iconFamily === "MaterialIcons" ? MaterialIcons : Ionicons;
 

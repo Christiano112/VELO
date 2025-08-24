@@ -1,20 +1,20 @@
 import { COLORS } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ShadowView } from "@/components/ui/ShadowView";
 import { ThemedText } from "@/components/ThemedText";
 
-interface DriversCardProps {
-  nearbyDrivers: any;
-}
-
-export const DriversCard = ({ nearbyDrivers }: DriversCardProps) => {
+export const DriversCard = ({
+  nearbyDriversLength,
+}: {
+  nearbyDriversLength: number;
+}) => {
   return (
     <ShadowView style={styles.driversCard} type="heavy">
       <View style={styles.onlineIndicator} />
       <ThemedText style={styles.driversText}>
-        {nearbyDrivers} driver{nearbyDrivers !== 1 ? "s" : ""} nearby
+        {nearbyDriversLength || 0} driver{nearbyDriversLength !== 1 ? "s" : ""}{" "}
+        nearby
       </ThemedText>
       <Ionicons name="car" size={16} color={COLORS.light.white} />
     </ShadowView>

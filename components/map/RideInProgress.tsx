@@ -1,5 +1,6 @@
 import { DriverMarker } from "@/components/map/DriverMarker";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { StyleSheet } from "react-native";
 import MapView, { LatLng, Polyline } from "react-native-maps";
 
 type Props = {
@@ -24,7 +25,7 @@ export const RideInProgressMap = ({ driverPos, routePolyline }: Props) => {
   }, [driverPos?.lat, driverPos?.lng]);
 
   return (
-    <MapView ref={mapRef} style={{ flex: 1 }}>
+    <MapView ref={mapRef} style={StyleSheet.absoluteFillObject}>
       {routePolyline?.length ? (
         <Polyline coordinates={routePolyline} strokeWidth={4} />
       ) : null}

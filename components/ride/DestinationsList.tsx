@@ -1,4 +1,3 @@
-import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { Ionicons } from "@expo/vector-icons";

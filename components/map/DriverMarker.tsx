@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatedRegion, MarkerAnimated } from "react-native-maps";
 
 type Props = { lat: number; lng: number; heading?: number };

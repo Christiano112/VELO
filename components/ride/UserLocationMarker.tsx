@@ -1,5 +1,4 @@
 import type { LocationRegion } from "@/types/ride";
-import React from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import { Marker } from "react-native-maps";
 import { ShadowView } from "@/components/ui/ShadowView";

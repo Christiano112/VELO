@@ -1,111 +1,94 @@
+import { StyleSheet } from "react-native";
+
+import ScrollContainer from "@/components/layout/HeaderScroll";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { AnimatedHeader } from "@/components/ui/AnimatedHeader";
 import Avatar from "@/components/ui/Avatar";
 import { SPACING } from "@/constants/GlobalStyles";
 import { rideDetail } from "@/constants/StaticData";
-import { ScrollView, StyleSheet } from "react-native";
 
 const CustomerRideDetails = () => {
-  const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
-    title: "Ride Details",
-  });
-
   return (
-    <ThemedView style={styles.container}>
-      {headerComponent}
-
-      <ScrollView
-        contentContainerStyle={[{ paddingTop: headerHeight }]}
-        showsVerticalScrollIndicator={false}
-        {...scrollProps}
-      >
-        <ThemedView style={styles.content}>
-          {/* Ride Information Card */}
-          <ThemedView style={styles.infoCard}>
-            <ThemedView style={styles.infoRow}>
-              <ThemedText style={styles.label}>Car Type</ThemedText>
-              <ThemedText style={styles.value}>{rideDetail.carType}</ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.infoRow}>
-              <ThemedText style={styles.label}>Date of Ride</ThemedText>
-              <ThemedText style={styles.value}>
-                {rideDetail.dateOfRide}
-              </ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.infoRow}>
-              <ThemedText style={styles.label}>Ride ID</ThemedText>
-              <ThemedText style={styles.value}>{rideDetail.rideId}</ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.infoRow}>
-              <ThemedText style={styles.label}>Status</ThemedText>
-              <ThemedText
-                style={[
-                  styles.value,
-                  {
-                    color:
-                      rideDetail.status === "completed" ? "#27ae60" : "#e74c3c",
-                  },
-                ]}
-              >
-                {rideDetail.status.charAt(0).toUpperCase() +
-                  rideDetail.status.slice(1)}
-              </ThemedText>
-            </ThemedView>
+    <ScrollContainer title="Ride Details">
+      <ThemedView style={styles.content}>
+        {/* Ride Information Card */}
+        <ThemedView style={styles.infoCard}>
+          <ThemedView style={styles.infoRow}>
+            <ThemedText style={styles.label}>Car Type</ThemedText>
+            <ThemedText style={styles.value}>{rideDetail.carType}</ThemedText>
           </ThemedView>
-
-          {/* Driver Information Card */}
-          <ThemedView style={styles.driverCard}>
-            <Avatar
-              name={rideDetail.driver.name}
-              src={rideDetail.driver.avatar}
-              size={80}
-            />
-            <ThemedView style={styles.driverInfo}>
-              <ThemedText style={styles.driverName}>
-                {rideDetail.driver.name}
-              </ThemedText>
-              <ThemedText style={styles.licensePlate}>
-                {rideDetail.driver.license}
-              </ThemedText>
-            </ThemedView>
+          <ThemedView style={styles.infoRow}>
+            <ThemedText style={styles.label}>Date of Ride</ThemedText>
+            <ThemedText style={styles.value}>
+              {rideDetail.dateOfRide}
+            </ThemedText>
           </ThemedView>
-
-          {/* Trip Statistics Card */}
-          <ThemedView style={styles.statsCard}>
-            <ThemedView style={styles.statItem}>
-              <ThemedText style={styles.statLabel}>Distance</ThemedText>
-              <ThemedText style={styles.statValue}>
-                {rideDetail.distance}
-              </ThemedText>
-            </ThemedView>
-
-            <ThemedView style={styles.statDivider} />
-
-            <ThemedView style={styles.statItem}>
-              <ThemedText style={styles.statLabel}>Duration</ThemedText>
-              <ThemedText style={styles.statValue}>
-                {rideDetail.duration}
-              </ThemedText>
-            </ThemedView>
+          <ThemedView style={styles.infoRow}>
+            <ThemedText style={styles.label}>Ride ID</ThemedText>
+            <ThemedText style={styles.value}>{rideDetail.rideId}</ThemedText>
+          </ThemedView>
+          <ThemedView style={styles.infoRow}>
+            <ThemedText style={styles.label}>Status</ThemedText>
+            <ThemedText
+              style={[
+                styles.value,
+                {
+                  color:
+                    rideDetail.status === "completed" ? "#27ae60" : "#e74c3c",
+                },
+              ]}
+            >
+              {rideDetail.status.charAt(0).toUpperCase() +
+                rideDetail.status.slice(1)}
+            </ThemedText>
           </ThemedView>
         </ThemedView>
-      </ScrollView>
-    </ThemedView>
+
+        {/* Driver Information Card */}
+        <ThemedView style={styles.driverCard}>
+          <Avatar
+            name={rideDetail.driver.name}
+            src={rideDetail.driver.avatar}
+            size={80}
+          />
+          <ThemedView style={styles.driverInfo}>
+            <ThemedText style={styles.driverName}>
+              {rideDetail.driver.name}
+            </ThemedText>
+            <ThemedText style={styles.licensePlate}>
+              {rideDetail.driver.license}
+            </ThemedText>
+          </ThemedView>
+        </ThemedView>
+
+        {/* Trip Statistics Card */}
+        <ThemedView style={styles.statsCard}>
+          <ThemedView style={styles.statItem}>
+            <ThemedText style={styles.statLabel}>Distance</ThemedText>
+            <ThemedText style={styles.statValue}>
+              {rideDetail.distance}
+            </ThemedText>
+          </ThemedView>
+
+          <ThemedView style={styles.statDivider} />
+
+          <ThemedView style={styles.statItem}>
+            <ThemedText style={styles.statLabel}>Duration</ThemedText>
+            <ThemedText style={styles.statValue}>
+              {rideDetail.duration}
+            </ThemedText>
+          </ThemedView>
+        </ThemedView>
+      </ThemedView>
+    </ScrollContainer>
   );
 };
 
 export default CustomerRideDetails;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
-    paddingHorizontal: SPACING.large,
-    marginBottom: SPACING.xxLarge,
     gap: SPACING.large,
-    marginTop: SPACING.normal,
   },
   infoCard: {
     backgroundColor: "#f7f8f9",

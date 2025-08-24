@@ -1,6 +1,8 @@
 import * as Location from "expo-location";
 import type { PreviousDestination, LocationRegion } from "@/types/ride";
+import { COLORS } from "@/constants/Colors";
 
+const BRAND_COLOR: string = COLORS.light.brand;
 export const LOCATION_SETTINGS = {
   accuracy: Location.Accuracy.BestForNavigation,
   timeout: 10000,
@@ -89,12 +91,12 @@ export const MAP_STYLE = [
   {
     featureType: "road",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#616161" }],
+    stylers: [{ color: BRAND_COLOR }],
   },
   {
     featureType: "road.highway",
     elementType: "geometry",
-    stylers: [{ color: "#dadada" }],
+    stylers: [{ color: BRAND_COLOR }],
   },
   {
     featureType: "water",

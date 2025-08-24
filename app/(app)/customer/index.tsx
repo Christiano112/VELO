@@ -26,13 +26,8 @@ import type { PreviousDestination } from "@/types/ride";
 
 const Customer = () => {
   // Custom hooks
-  const {
-    location,
-    errorMsg,
-    isLocationLoading,
-    isRefreshing,
-    getCurrentLocation,
-  } = useLocation();
+  const { location, errorMsg, isLocationLoading, getCurrentLocation } =
+    useLocation();
   const { nearbyDrivers, getVehicleColor } = useDrivers(location);
 
   // State
@@ -98,14 +93,6 @@ const Customer = () => {
     [],
   );
 
-  const focusOnUserLocation = useCallback(() => {
-    if (location && mapRef.current) {
-      mapRef.current.animateToRegion(location, 1000);
-    } else {
-      getCurrentLocation(true);
-    }
-  }, [location, getCurrentLocation]);
-
   const handleMenuPress = useCallback(() => {
     console.log("Open menu");
   }, []);
@@ -131,11 +118,7 @@ const Customer = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderControls
-        onMenuPress={handleMenuPress}
-        onLocationPress={focusOnUserLocation}
-        isRefreshing={isRefreshing}
-      />
+      <HeaderControls onMenuPress={handleMenuPress} />
 
       <RideMap
         mapRef={mapRef}
@@ -146,7 +129,7 @@ const Customer = () => {
         onDestinationSelect={handleDestinationSelect}
       />
 
-      <DriversCard nearbyDrivers={nearbyDrivers} />
+      <DriversCard nearbyDriversLength={nearbyDrivers.length} />
 
       <RideBottomSheet
         bottomSheetRef={bottomSheetRef}

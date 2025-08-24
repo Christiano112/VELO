@@ -1,14 +1,14 @@
-import AppButton from "@/components/form/AppButton";
-import { ThemedView } from "@/components/ThemedView";
-import { AnimatedHeader } from "@/components/ui/AnimatedHeader";
+import { format } from "date-fns";
+import { useCallback, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
+import { AppButton } from "@/components/form/AppButton";
+import ScrollContainer from "@/components/layout/HeaderScroll";
 import { CalendarModal } from "@/components/ui/CalendarModal";
 import { Time, TimePickerModal } from "@/components/ui/TimePickerModal";
 import { Toast } from "@/components/ui/Toast";
 import { theme } from "@/constants/Theme";
 import { Ionicons } from "@expo/vector-icons";
-import { format } from "date-fns";
-import { useCallback, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const DateTimePickerInput = ({
   icon,
@@ -76,22 +76,9 @@ const CustomerScheduleRide = () => {
     // Navigation logic would go here
   }, [date, time, isNextDisabled, formatTime]);
 
-  const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
-    title: "Plan Your Ride",
-  });
-
   return (
-    <ThemedView style={styles.container}>
-      {headerComponent}
-
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContainer,
-          { paddingTop: headerHeight },
-        ]}
-        showsVerticalScrollIndicator={false}
-        {...scrollProps}
-      >
+    <>
+      <ScrollContainer title="Rides">
         <View style={styles.content}>
           <Text style={styles.subtitle}>
             Select your desired pickup date and time to schedule your ride in
@@ -113,11 +100,14 @@ const CustomerScheduleRide = () => {
               icon="time-outline"
             />
           </View>
-          <AppButton onPress={handleNextPress} isDisabled={isNextDisabled}>
-            Next
-          </AppButton>
+
+          <AppButton
+            title="Next"
+            onPress={handleNextPress}
+            isDisabled={isNextDisabled}
+          />
         </View>
-      </ScrollView>
+      </ScrollContainer>
 
       <CalendarModal
         isVisible={isDatePickerVisible}
@@ -136,7 +126,7 @@ const CustomerScheduleRide = () => {
         isVisible={toast.isVisible}
         onHide={() => setToast({ message: "", isVisible: false })}
       />
-    </ThemedView>
+    </>
   );
 };
 
@@ -144,15 +134,8 @@ export default CustomerScheduleRide;
 
 // Styles (using the new theme)
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  scrollContainer: {
-    paddingHorizontal: theme.spacing.m,
-    flex: 1,
-  },
   content: {
     flex: 1,
-    paddingTop: theme.spacing.s,
-    marginBottom: theme.spacing.xl,
   },
   subtitle: {
     ...theme.typography.getFont("400", 16),

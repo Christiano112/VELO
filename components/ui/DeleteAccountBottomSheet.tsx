@@ -4,11 +4,11 @@ import BottomSheet, {
   BottomSheetTextInput,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import React, { forwardRef, useCallback } from "react";
+import { forwardRef, useCallback } from "react";
 import { Keyboard, Pressable, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import AppButton from "@/components/form/AppButton";
+import { AppButton } from "@/components/form/AppButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { COLORS } from "@/constants/Colors";
@@ -52,7 +52,7 @@ const DeleteAccountBottomSheet = forwardRef<
           appearsOnIndex={0}
           opacity={0.3}
           enableTouchThrough={false}
-          pressBehavior="none"
+          pressBehavior="close"
           style={{ zIndex: 3 }}
         />
       ),

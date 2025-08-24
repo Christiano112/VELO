@@ -2,9 +2,8 @@ import { COLORS } from "@/constants/Colors";
 import { SPACING } from "@/constants/GlobalStyles";
 import { IMAGES } from "@/constants/Images";
 import type { Dispatch, SetStateAction } from "react";
-import React from "react";
 import { Image, Modal, StyleSheet } from "react-native";
-import AppButton from "../form/AppButton";
+import { AppButton } from "@/components/form/AppButton";
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";
 import { ShadowView } from "./ShadowView";
@@ -52,14 +51,12 @@ const CustomModal = ({
             {text}
           </ThemedText>
           <AppButton
-            type="form"
+            title={buttonText || "Continue"}
             onPress={() => {
               onClose && onClose();
               setShowModal(false);
             }}
-          >
-            {buttonText || "Continue"}
-          </AppButton>
+          />
         </ShadowView>
       </ThemedView>
     </Modal>

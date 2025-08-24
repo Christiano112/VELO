@@ -1,8 +1,5 @@
 import { IMAGES } from "@/constants/Images";
 import type { Driver } from "@/types/ride";
-import { Image } from "expo-image";
-import React from "react";
-import { StyleSheet, View } from "react-native";
 import { Marker } from "react-native-maps";
 
 interface DriverMarkersProps {
@@ -20,19 +17,11 @@ export const DriverMarkers = ({ drivers }: DriverMarkersProps) => {
             longitude: driver.longitude,
           }}
           anchor={{ x: 0.5, y: 0.5 }}
-        >
-          <View>
-            <Image source={IMAGES.CAR_SVG} style={styles.car} />
-          </View>
-        </Marker>
+          title={driver.type}
+          description={`${driver.rating} (${driver.eta})`}
+          image={IMAGES.MAP_CAR}
+        />
       ))}
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  car: {
-    height: 20,
-    width: 30,
-  },
-});

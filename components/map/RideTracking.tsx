@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import MapView, { type LatLng, Marker, Polyline } from "react-native-maps";
 
 export const RideTracking = ({
@@ -8,7 +9,7 @@ export const RideTracking = ({
   routeCoords: LatLng[];
 }) => (
   <MapView
-    style={{ flex: 1 }}
+    style={StyleSheet.absoluteFillObject}
     initialRegion={{
       latitude: driverLocation.latitude,
       longitude: driverLocation.longitude,

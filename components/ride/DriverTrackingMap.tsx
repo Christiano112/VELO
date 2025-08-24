@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { RefObject, useEffect } from "react";
+import { RefObject, useEffect } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -82,7 +82,7 @@ export const DriverTrackingMap = ({
       <MapView
         ref={mapRef}
         provider={PROVIDER_GOOGLE}
-        style={styles.map}
+        style={StyleSheet.absoluteFillObject}
         initialRegion={{
           latitude: (userLocation.latitude + driverLocation.latitude) / 2,
           longitude: (userLocation.longitude + driverLocation.longitude) / 2,
@@ -203,9 +203,6 @@ const styles = StyleSheet.create({
   mapContainer: {
     flex: 1,
     position: "relative",
-  },
-  map: {
-    flex: 1,
   },
   userMarkerContainer: {
     alignItems: "center",

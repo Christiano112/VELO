@@ -1,4 +1,3 @@
-import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { RatingBadge } from "./RatingBadge";
 
@@ -10,13 +9,13 @@ interface DriverInfoCardProps {
   imageUrl?: string;
 }
 
-export const DriverInfoCard: React.FC<DriverInfoCardProps> = ({
+export const DriverInfoCard = ({
   name,
   plateNumber,
   vehicleType,
   rating,
   imageUrl = "https://via.placeholder.com/75x75",
-}) => (
+}: DriverInfoCardProps) => (
   <View style={styles.driverSection}>
     <Image source={{ uri: imageUrl }} style={styles.driverImage} />
     <View style={styles.ratingBadgeContainer}>

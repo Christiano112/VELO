@@ -2,7 +2,7 @@ import { COLORS } from "@/constants/Colors";
 import { SPACING } from "@/constants/GlobalStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import {
   Animated,
   NativeScrollEvent,
@@ -17,7 +17,7 @@ import {
 
 interface PropType {
   title: string;
-  rightComponent?: React.ReactNode;
+  rightComponent?: ReactNode;
   showRightComponent?: boolean;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   style?: ViewStyle;

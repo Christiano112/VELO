@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as Location from "expo-location";
-import React, { RefObject } from "react";
+import { RefObject } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -111,7 +111,7 @@ export const RouteMap = ({
     <MapView
       ref={mapRef}
       provider={PROVIDER_GOOGLE}
-      style={styles.map}
+      style={StyleSheet.absoluteFillObject}
       initialRegion={{
         latitude: 30.7333,
         longitude: 76.7794,
@@ -149,9 +149,6 @@ export const RouteMap = ({
 };
 
 const styles = StyleSheet.create({
-  map: {
-    flex: 1,
-  },
   currentLocationContainer: {
     alignItems: "center",
     justifyContent: "center",

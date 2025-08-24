@@ -1,96 +1,163 @@
-import { COLORS } from "@/constants/Colors";
-import { SPACING } from "@/constants/GlobalStyles";
-import { ReactNode } from "react";
-import { ActivityIndicator, Pressable, StyleSheet } from "react-native";
-import { ThemedText } from "../ThemedText";
-import { ThemedView } from "../ThemedView";
+import { theme } from "@/constants/Theme";
+import type { ReactNode } from "react";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 
-interface PropType {
-  children: ReactNode;
+type ButtonVariant = "primary" | "secondary" | "destructive" | "ghost";
+
+interface AppButtonProps {
+  // Content
+  title?: string;
+  children?: ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+
+  // Actions & State
   onPress: () => void;
-  isDisabled?: boolean;
   isLoading?: boolean;
-  isExpandable?: boolean;
-  type?: "default" | "form";
+  isDisabled?: boolean;
+
+  // Styling
+  variant?: ButtonVariant;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
 }
 
-const AppButton = ({
+export const AppButton = ({
+  title,
   children,
+  leftIcon,
+  rightIcon,
   onPress,
-  isDisabled,
-  isLoading,
-  type = "default",
-  isExpandable = false,
-}: PropType) => {
+  isLoading = false,
+  isDisabled = false,
+  variant = "primary",
+  style,
+  textStyle,
+}: AppButtonProps) => {
+  const isButtonDisabled = isLoading || isDisabled;
+  const variantStyle = variantStyles[variant];
+
+  const loadingIndicatorColor =
+    variant === "primary" ? theme.colors.white : theme.colors.primary;
+
   return (
-    <ThemedView
-      style={[
-        styles.buttonOuterContainer,
-        { marginTop: type === "form" ? SPACING.medium : 0 },
+    <Pressable
+      onPress={onPress}
+      disabled={isButtonDisabled}
+      style={({ pressed }) => [
+        styles.baseContainer,
+        variantStyle.container,
+        pressed && styles.pressed,
+        isButtonDisabled && styles.disabledContainer,
+        style,
       ]}
+      accessibilityRole="button"
+      accessibilityState={{ disabled: isButtonDisabled }}
     >
-      <Pressable
-        style={({ pressed }) => [
-          styles.buttonInnerContainer,
-          pressed && !isExpandable && styles.pressed,
-          (isDisabled || isLoading) && styles.disabled,
-        ]}
-        onPress={onPress}
-        android_ripple={{ color: COLORS.light.brand, radius: 0 }}
-        disabled={isDisabled || isLoading}
-      >
-        {isLoading ? (
-          <ActivityIndicator size="small" color={COLORS.light.white} />
-        ) : isExpandable ? (
-          <ThemedView style={styles.buttonView}>{children}</ThemedView>
-        ) : (
-          <ThemedText
-            type="defaultSemiBold"
-            style={styles.buttonText}
-            selectable={false}
-          >
-            {children}
-          </ThemedText>
-        )}
-      </Pressable>
-    </ThemedView>
+      {isLoading ? (
+        <ActivityIndicator size="small" color={loadingIndicatorColor} />
+      ) : (
+        <>
+          {leftIcon}
+          {title && (
+            <Text
+              style={[
+                styles.baseText,
+                variantStyle.text,
+                isButtonDisabled && styles.disabledText,
+                textStyle,
+              ]}
+            >
+              {title}
+            </Text>
+          )}
+          {children}
+          {rightIcon}
+        </>
+      )}
+    </Pressable>
   );
 };
 
-export default AppButton;
-
-const styles = StyleSheet.create({
-  buttonOuterContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: SPACING.medium,
-    flexShrink: 1,
-  },
-  buttonInnerContainer: {
-    borderRadius: SPACING.medium,
-    backgroundColor: COLORS.light.brand,
-    elevation: 5,
-    paddingHorizontal: SPACING.xLarge,
-    paddingVertical: SPACING.BMedium,
-    minWidth: 120,
-    width: "100%",
-  },
-  buttonText: {
-    color: COLORS.light.white,
-    textAlign: "center",
-    userSelect: "none",
-  },
-  pressed: {
-    opacity: 0.7,
-  },
-  disabled: {
-    opacity: 0.9,
-  },
-  buttonView: {
+const baseStyles = StyleSheet.create({
+  baseContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: SPACING.small,
-    backgroundColor: COLORS.light.brand,
+    paddingVertical: 14,
+    paddingHorizontal: theme.spacing.l,
+    borderRadius: 12,
+    gap: theme.spacing.s,
+  },
+  baseText: {
+    ...theme.typography.getFont("600", 16),
+    textAlign: "center",
+  },
+  pressed: {
+    opacity: 0.8,
+  },
+  disabledContainer: {
+    backgroundColor: theme.colors.disabled,
+    borderColor: theme.colors.disabled,
+  },
+  disabledText: {
+    color: theme.colors.textSecondary,
   },
 });
+
+const variantStyles: Record<
+  ButtonVariant,
+  { container: ViewStyle; text: TextStyle }
+> = {
+  primary: {
+    container: {
+      backgroundColor: theme.colors.primary,
+      borderWidth: 1,
+      borderColor: theme.colors.primary,
+    },
+    text: {
+      color: theme.colors.white,
+    },
+  },
+  secondary: {
+    container: {
+      backgroundColor: "transparent",
+      borderWidth: 1,
+      borderColor: theme.colors.primary,
+    },
+    text: {
+      color: theme.colors.primary,
+    },
+  },
+  destructive: {
+    container: {
+      backgroundColor: "transparent",
+      borderWidth: 1,
+      borderColor: theme.colors.danger,
+    },
+    text: {
+      color: theme.colors.danger,
+    },
+  },
+  ghost: {
+    container: {
+      backgroundColor: "transparent",
+      borderWidth: 1,
+      borderColor: "transparent",
+    },
+    text: {
+      color: theme.colors.primary,
+    },
+  },
+};
+
+const styles = StyleSheet.create({ ...baseStyles });
+
+export default AppButton;

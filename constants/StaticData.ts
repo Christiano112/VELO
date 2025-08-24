@@ -166,4 +166,7 @@ export const rideDetail = {
   },
   distance: "1.25 km",
   duration: "15 mins",
+  rating: 4.5,
+  price: "₦3,450",
+  carImage: IMAGES.CAR,
 };

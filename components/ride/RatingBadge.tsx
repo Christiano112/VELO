@@ -1,5 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 interface RatingBadgeProps {
@@ -9,12 +8,12 @@ interface RatingBadgeProps {
   borderColor?: string;
 }
 
-export const RatingBadge: React.FC<RatingBadgeProps> = ({
+export const RatingBadge = ({
   rating,
   backgroundColor = "#6e00cc",
   textColor = "#ffffff",
   borderColor = "#424042",
-}) => (
+}: RatingBadgeProps) => (
   <View style={[styles.ratingBadge, { backgroundColor, borderColor }]}>
     <Ionicons name="star" size={14} color={textColor} />
     <Text style={[styles.ratingText, { color: textColor }]}>

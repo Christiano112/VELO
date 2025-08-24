@@ -1,6 +1,6 @@
 import { generateColorFromName, getInitials } from "@/utils/name";
 import { Image } from "expo-image";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 
 interface PropType {

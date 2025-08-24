@@ -1,7 +1,7 @@
 import { Link, useRouter } from "expo-router";
 import { StyleSheet } from "react-native";
 
-import AppButton from "@/components/form/AppButton";
+import { AppButton } from "@/components/form/AppButton";
 import AppInput from "@/components/form/AppInput";
 import AuthContainer from "@/components/layout/Auth";
 import { ThemedText } from "@/components/ThemedText";
@@ -55,12 +55,10 @@ const Login = () => {
             Forgot Password?
           </Link>
           <AppButton
-            type="form"
+            title="Login"
             onPress={handleSubmit(onSubmit)}
             isDisabled={!isDirty}
-          >
-            Login
-          </AppButton>
+          />
         </ThemedView>
         <ThemedText style={styles.noAccount} type="defaultMedium">
           Don’t have an account?{" "}

@@ -2,7 +2,7 @@ import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import AppButton from "@/components/form/AppButton";
+import { AppButton } from "@/components/form/AppButton";
 import AppInput from "@/components/form/AppInput";
 import AuthContainer from "@/components/layout/Auth";
 import { ThemedText } from "@/components/ThemedText";
@@ -59,12 +59,10 @@ const ResetPassword = () => {
             keyboardType="visible-password"
           />
           <AppButton
-            type="form"
+            title="Reset Password"
             onPress={handleSubmit(onSubmit)}
             isDisabled={!isDirty}
-          >
-            Reset Password
-          </AppButton>
+          />
         </ThemedView>
         <ThemedText style={styles.noAccount} type="defaultMedium">
           Don’t have an account?{" "}

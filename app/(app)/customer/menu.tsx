@@ -1,16 +1,11 @@
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React, { useRef, useState } from "react";
-import {
-  Keyboard,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { ReactNode, useRef, useState } from "react";
+import { Keyboard, StyleSheet, TouchableOpacity } from "react-native";
 
+import ScrollContainer from "@/components/layout/HeaderScroll";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { AnimatedHeader } from "@/components/ui/AnimatedHeader";
 import Avatar from "@/components/ui/Avatar";
 import ConfirmationBottomSheet from "@/components/ui/ConfirmationBottomSheet";
 import DeleteAccountBottomSheet from "@/components/ui/DeleteAccountBottomSheet";
@@ -21,7 +16,7 @@ const MenuSection = ({
   children,
   style,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   style?: any;
 }) => <ThemedView style={[styles.menuSection, style]}>{children}</ThemedView>;
 
@@ -32,7 +27,7 @@ const MenuItem = ({
   showArrow = true,
   isDestructive = false,
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   title: string;
   onPress: () => void;
   showArrow?: boolean;
@@ -99,19 +94,9 @@ const CustomerMenu = () => {
     setDeleteReason("");
   };
 
-  const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
-    title: "Menu",
-  });
-
   return (
-    <ThemedView style={styles.container}>
-      {headerComponent}
-
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingTop: headerHeight }]}
-        showsVerticalScrollIndicator={false}
-        {...scrollProps}
-      >
+    <>
+      <ScrollContainer title="Menu">
         {/* Profile Section */}
         <ThemedView style={styles.profileSection}>
           <Avatar name="Simran Thappar" />
@@ -237,7 +222,7 @@ const CustomerMenu = () => {
             isDestructive={true}
           />
         </MenuSection>
-      </ScrollView>
+      </ScrollContainer>
 
       {/* Logout Confirmation Bottom Sheet */}
       <ConfirmationBottomSheet
@@ -255,19 +240,13 @@ const CustomerMenu = () => {
         onConfirm={confirmDelete}
         onCancel={cancelDelete}
       />
-    </ThemedView>
+    </>
   );
 };
 
 export default CustomerMenu;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    paddingHorizontal: SPACING.large,
-  },
   profileSection: {
     backgroundColor: COLORS.light.inputBg,
     borderRadius: SPACING.medium,

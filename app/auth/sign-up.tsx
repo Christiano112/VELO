@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Link, useRouter } from "expo-router";
 
-import AppButton from "@/components/form/AppButton";
+import { AppButton } from "@/components/form/AppButton";
 import AppCheckBox from "@/components/form/AppCheckBox";
 import AppInput from "@/components/form/AppInput";
 import AuthContainer from "@/components/layout/Auth";
@@ -94,12 +94,10 @@ const SignUp = () => {
             keyboardType="visible-password"
           />
           <AppButton
-            type="form"
+            title="Create Account"
             onPress={handleSubmit(onSubmit)}
             isDisabled={!isDirty}
-          >
-            Create Account
-          </AppButton>
+          />
           <ThemedView style={styles.terms}>
             <AppCheckBox
               checked={agreedToTerms}

@@ -1,180 +1,156 @@
-import AppButton from "@/components/form/AppButton";
-import { ThemedView } from "@/components/ThemedView";
-import { AnimatedHeader } from "@/components/ui/AnimatedHeader";
-import { CalendarModal } from "@/components/ui/CalendarModal";
-import { Time, TimePickerModal } from "@/components/ui/TimePickerModal";
-import { Toast } from "@/components/ui/Toast";
-import { theme } from "@/constants/Theme";
-import { Ionicons } from "@expo/vector-icons";
-import { format } from "date-fns";
-import { useCallback, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Alert,
+  Animated,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+} from "react-native";
+import MapView from "react-native-maps";
 
-const DateTimePickerInput: React.FC<{
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
-  value: string;
-  onPress: () => void;
-  placeholder: string;
-}> = ({ icon, label, value, onPress, placeholder }) => (
-  <View style={styles.inputContainer}>
-    <Text style={styles.inputLabel}>{label}</Text>
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`Select ${label}`}
-      onPress={onPress}
-      style={styles.inputPressable}
-    >
-      <Text style={[styles.inputValue, !value && styles.inputPlaceholder]}>
-        {value || placeholder}
-      </Text>
-      <Ionicons name={icon} size={24} color={theme.colors.primary} />
-    </Pressable>
-  </View>
-);
+// Components
+import { DriversCard } from "@/components/ride/DriversCard";
+import { HeaderControls } from "@/components/ride/HeaderControls";
+import { LoadingState } from "@/components/ride/LoadingState";
+import { RideBottomSheet } from "@/components/ride/RideBottomSheet";
+import { RideMap } from "@/components/ride/RideMap";
 
-const ScheduleRideScreen = () => {
-  const [date, setDate] = useState<Date | null>(null);
-  const [time, setTime] = useState<Time | null>(null);
-  const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-  const [isTimePickerVisible, setTimePickerVisible] = useState(false);
-  const [toast, setToast] = useState<{ message: string; isVisible: boolean }>({
-    message: "",
-    isVisible: false,
-  });
+// Hooks
+import { useDrivers } from "@/hooks/useDrivers";
+import { useLocation } from "@/hooks/useLocation";
 
-  const isNextDisabled = !date || !time;
+// Constants and Types
+import { MOCK_DESTINATIONS } from "@/constants/RideConstants";
+import type { PreviousDestination } from "@/types/ride";
 
-  const showToast = (message: string) => setToast({ message, isVisible: true });
+const Customer = () => {
+  // Custom hooks
+  const { location, errorMsg, isLocationLoading, getCurrentLocation } =
+    useLocation();
+  const { nearbyDrivers, getVehicleColor } = useDrivers(location);
 
-  const formatTime = useCallback((t: Time | null): string => {
-    if (!t) return "";
-    return `${t.hours}:${String(t.minutes).padStart(2, "0")} ${t.period}`;
+  // State
+  const [searchQuery, setSearchQuery] = useState("");
+  const [previousDestinations] =
+    useState<PreviousDestination[]>(MOCK_DESTINATIONS);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  // Refs
+  const mapRef = useRef<MapView>(null);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const searchInputRef = useRef<TextInput>(null);
+  const pulseAnimation = useRef(new Animated.Value(0)).current;
+
+  // Memoized values
+  const filteredDestinations = useMemo(() => {
+    if (!searchQuery.trim()) return previousDestinations;
+    return previousDestinations.filter(
+      (dest) =>
+        dest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        dest.address.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  }, [searchQuery, previousDestinations]);
+
+  // Pulse animation for user location
+  useEffect(() => {
+    const pulse = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnimation, {
+          toValue: 1,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnimation, {
+          toValue: 0,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    pulse.start();
+    return () => pulse.stop();
+  }, [pulseAnimation]);
+
+  // Event handlers
+  const handleDestinationSelect = useCallback(
+    (destination: PreviousDestination) => {
+      Alert.alert(
+        "Select Destination",
+        `Would you like to go to ${destination.name}?\n${destination.address}`,
+        [
+          { text: "Cancel", style: "cancel" },
+          {
+            text: "Book Ride",
+            onPress: () => {
+              console.log("Navigate to:", destination.name);
+              bottomSheetRef.current?.close();
+            },
+          },
+        ],
+      );
+    },
+    [],
+  );
+
+  const handleMenuPress = useCallback(() => {
+    console.log("Open menu");
   }, []);
 
-  const handleConfirmTime = useCallback((selectedTime: Time) => {
-    setTime(selectedTime);
-    setTimePickerVisible(false);
-  }, []);
+  // Effects
+  useEffect(() => {
+    getCurrentLocation();
+  }, [getCurrentLocation]);
 
-  const handleConfirmDate = useCallback((selectedDate: Date) => {
-    setDate(selectedDate);
-    setDatePickerVisible(false);
-  }, []);
+  // Loading state
+  const loadingState = (
+    <LoadingState
+      isLocationLoading={isLocationLoading}
+      errorMsg={errorMsg}
+      location={location}
+      onRetry={() => getCurrentLocation()}
+    />
+  );
 
-  const handleNextPress = useCallback(() => {
-    if (isNextDisabled) return;
-    const formattedDate = date ? format(date, "MMMM d, yyyy") : "";
-    const formattedTime = formatTime(time);
-    showToast(`Ride scheduled for ${formattedDate} at ${formattedTime}`);
-    // Navigation logic would go here
-  }, [date, time, isNextDisabled, formatTime]);
-
-  const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
-    title: "Plan Your Ride",
-  });
+  if (isLocationLoading || !location) {
+    return loadingState;
+  }
 
   return (
-    <ThemedView style={styles.container}>
-      {headerComponent}
+    <SafeAreaView style={styles.container}>
+      <HeaderControls onMenuPress={handleMenuPress} />
 
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContainer,
-          { paddingTop: headerHeight },
-        ]}
-        showsVerticalScrollIndicator={false}
-        {...scrollProps}
-      >
-        <View style={styles.content}>
-          <Text style={styles.subtitle}>
-            Select your desired pickup date and time to schedule your ride in
-            advance.
-          </Text>
-          <View style={styles.form}>
-            <DateTimePickerInput
-              label="Choose Date"
-              placeholder="Select a date"
-              value={date ? format(date, "MMMM d, yyyy") : ""}
-              onPress={() => setDatePickerVisible(true)}
-              icon="calendar-outline"
-            />
-            <DateTimePickerInput
-              label="Choose Time"
-              placeholder="Select a time"
-              value={formatTime(time)}
-              onPress={() => setTimePickerVisible(true)}
-              icon="time-outline"
-            />
-          </View>
-          <AppButton onPress={handleNextPress} isDisabled={isNextDisabled}>
-            Next
-          </AppButton>
-        </View>
-      </ScrollView>
+      <RideMap
+        mapRef={mapRef}
+        location={location}
+        nearbyDrivers={nearbyDrivers}
+        previousDestinations={previousDestinations}
+        pulseAnimation={pulseAnimation}
+        onDestinationSelect={handleDestinationSelect}
+      />
 
-      <CalendarModal
-        isVisible={isDatePickerVisible}
-        onClose={() => setDatePickerVisible(false)}
-        onSelectDate={handleConfirmDate}
-        selectedDate={date}
+      <DriversCard nearbyDriversLength={nearbyDrivers.length} />
+
+      <RideBottomSheet
+        bottomSheetRef={bottomSheetRef}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchFocused={isSearchFocused}
+        setIsSearchFocused={setIsSearchFocused}
+        searchInputRef={searchInputRef}
+        filteredDestinations={filteredDestinations}
+        onDestinationSelect={handleDestinationSelect}
+        getVehicleColor={getVehicleColor}
       />
-      <TimePickerModal
-        isVisible={isTimePickerVisible}
-        onClose={() => setTimePickerVisible(false)}
-        onConfirm={handleConfirmTime}
-        initialTime={time}
-      />
-      <Toast
-        message={toast.message}
-        isVisible={toast.isVisible}
-        onHide={() => setToast({ message: "", isVisible: false })}
-      />
-    </ThemedView>
+    </SafeAreaView>
   );
 };
 
-// Styles (using the new theme)
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  scrollContainer: {
-    paddingHorizontal: theme.spacing.m,
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    paddingTop: theme.spacing.s,
-    marginBottom: theme.spacing.xl,
-  },
-  subtitle: {
-    ...theme.typography.getFont("400", 16),
-    color: theme.colors.textSecondary,
-    marginBottom: theme.spacing.xl,
-    lineHeight: 24,
-  },
-  form: { flex: 1, gap: theme.spacing.l },
-  inputContainer: { width: "100%" },
-  inputLabel: {
-    ...theme.typography.getFont("500", 16),
-    color: theme.colors.textSecondary,
-    marginBottom: theme.spacing.s,
-  },
-  inputPressable: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: theme.colors.inputBackground,
-    borderWidth: 1,
-    borderColor: theme.colors.borderColor,
-    borderRadius: 12,
-    paddingHorizontal: theme.spacing.m,
-    paddingVertical: 18,
-  },
-  inputValue: {
-    ...theme.typography.getFont("400", 16),
-    color: theme.colors.textPrimary,
-  },
-  inputPlaceholder: { color: theme.colors.textPlaceholder },
-});
+export default Customer;
 
-export default ScheduleRideScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+  },
+});

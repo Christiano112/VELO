@@ -4,18 +4,18 @@ import BottomSheet, {
   BottomSheetView,
   type BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
-import React, { useCallback, useMemo } from "react";
+import { RefObject, useCallback, useMemo } from "react";
 import { Keyboard, StyleSheet, TextInput } from "react-native";
 import { DestinationsList } from "./DestinationsList";
 import { SearchBar } from "./SearchBar";
 
 interface RideBottomSheetProps {
-  bottomSheetRef: React.RefObject<BottomSheet | null>;
+  bottomSheetRef: RefObject<BottomSheet | null>;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   isSearchFocused: boolean;
   setIsSearchFocused: (focused: boolean) => void;
-  searchInputRef: React.RefObject<TextInput | null>;
+  searchInputRef: RefObject<TextInput | null>;
   filteredDestinations: PreviousDestination[];
   onDestinationSelect: (destination: PreviousDestination) => void;
   getVehicleColor: (type: "standard" | "premium" | "xl") => string;
@@ -54,7 +54,7 @@ export const RideBottomSheet = ({
         appearsOnIndex={1}
         opacity={0.3}
         enableTouchThrough={false}
-        pressBehavior="none"
+        pressBehavior="collapse"
         style={{ zIndex: 3 }}
       />
     ),
@@ -73,6 +73,7 @@ export const RideBottomSheet = ({
       enablePanDownToClose={false}
       handleIndicatorStyle={styles.bottomSheetIndicator}
       backgroundStyle={styles.bottomSheetBackground}
+      style={{ zIndex: 4 }}
       onChange={(index) => {
         if (index === -1) {
           Keyboard.dismiss();

@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 interface ETABadgeProps {
@@ -7,11 +6,11 @@ interface ETABadgeProps {
   textColor?: string;
 }
 
-export const ETABadge: React.FC<ETABadgeProps> = ({
+export const ETABadge = ({
   minutes,
   backgroundColor = "#6e00cc",
   textColor = "#ffffff",
-}) => (
+}: ETABadgeProps) => (
   <View style={[styles.etaBadge, { backgroundColor }]}>
     <Text style={[styles.etaNumber, { color: textColor }]}>{minutes}</Text>
     <Text style={[styles.etaLabel, { color: textColor }]}>Mins</Text>

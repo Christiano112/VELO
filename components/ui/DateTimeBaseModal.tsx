@@ -1,11 +1,12 @@
 import { theme } from "@/constants/Theme";
+import { ReactNode } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface BaseModalProps {
   isVisible: boolean;
   onClose: () => void;
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   onConfirm: () => void;
   confirmText?: string;
   cancelText?: string;

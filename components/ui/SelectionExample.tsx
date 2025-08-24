@@ -1,5 +1,5 @@
 import { SPACING } from "@/constants/GlobalStyles";
-import React, { useState } from "react";
+import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";

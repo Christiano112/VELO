@@ -1,57 +1,38 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
+import ScrollContainer from "@/components/layout/HeaderScroll";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { AnimatedHeader } from "@/components/ui/AnimatedHeader";
 import { SPACING } from "@/constants/GlobalStyles";
 import { notifications } from "@/constants/StaticData";
 
 const CustomerNotification = () => {
-  const { headerComponent, scrollProps, headerHeight } = AnimatedHeader({
-    title: "Notification",
-  });
-
   return (
-    <ThemedView style={styles.container}>
-      {headerComponent}
-
-      <ScrollView
-        contentContainerStyle={[{ paddingTop: headerHeight }]}
-        showsVerticalScrollIndicator={false}
-        {...scrollProps}
-      >
-        <ThemedView style={styles.content}>
-          {notifications?.map((item, index) => (
-            <ThemedView key={item.id}>
-              <ThemedView style={styles.notificationItem}>
-                <ThemedText style={styles.notificationTitle}>
-                  {item.title}
-                </ThemedText>
-                <ThemedText style={styles.notificationMessage}>
-                  {item.message}
-                </ThemedText>
-              </ThemedView>
-              {index < notifications.length - 1 && (
-                <ThemedView style={styles.separator} />
-              )}
+    <ScrollContainer title="Notification">
+      <ThemedView>
+        {notifications?.map((item, index) => (
+          <ThemedView key={item.id}>
+            <ThemedView style={styles.notificationItem}>
+              <ThemedText style={styles.notificationTitle}>
+                {item.title}
+              </ThemedText>
+              <ThemedText style={styles.notificationMessage}>
+                {item.message}
+              </ThemedText>
             </ThemedView>
-          ))}
-        </ThemedView>
-      </ScrollView>
-    </ThemedView>
+            {index < notifications.length - 1 && (
+              <ThemedView style={styles.separator} />
+            )}
+          </ThemedView>
+        ))}
+      </ThemedView>
+    </ScrollContainer>
   );
 };
 
 export default CustomerNotification;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    paddingHorizontal: SPACING.large,
-    marginBottom: SPACING.xxLarge,
-  },
   notificationItem: {
     paddingVertical: SPACING.normal,
   },

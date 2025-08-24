@@ -3,7 +3,7 @@ import BottomSheet, {
   BottomSheetScrollView,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import React, { RefObject, useMemo } from "react";
+import { RefObject, useMemo } from "react";
 import {
   StyleSheet,
   Text,

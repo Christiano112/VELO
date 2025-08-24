@@ -1,7 +1,7 @@
 import { COLORS } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import React from "react";
+import { Ref } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 interface SearchBarProps {
@@ -9,7 +9,7 @@ interface SearchBarProps {
   onSearchChange: (text: string) => void;
   onFocus: () => void;
   onBlur: () => void;
-  searchInputRef?: React.Ref<any>;
+  searchInputRef?: Ref<any>;
 }
 
 export const SearchBar = ({

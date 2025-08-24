@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
   },
   fieldText: {
     ...DESIGN_FONTS.regular,
-    color: "#11181C", // Using project's text color
+    color: "#11181C",
   },
   selectedFieldText: {
     color: DESIGN_COLORS.white,

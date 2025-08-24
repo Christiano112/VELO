@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { RefObject } from "react";
+import { RefObject } from "react";
 import { Animated, Dimensions, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -32,7 +32,7 @@ export const ChooseRideMap = ({
       <MapView
         ref={mapRef}
         provider={PROVIDER_GOOGLE}
-        style={styles.map}
+        style={StyleSheet.absoluteFillObject}
         initialRegion={{
           latitude: (pickup.latitude + destination.latitude) / 2,
           longitude: (pickup.longitude + destination.longitude) / 2,
@@ -109,9 +109,6 @@ const styles = StyleSheet.create({
   mapContainer: {
     height: height * 0.4,
     position: "relative",
-  },
-  map: {
-    flex: 1,
   },
   pickupMarkerContainer: {
     alignItems: "center",
